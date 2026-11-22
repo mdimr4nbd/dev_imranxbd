@@ -213,7 +213,7 @@ a { color: inherit; touch-action: manipulation; }
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 15%;
 }
 
 .actions { display: flex; align-items: center; gap: 8px; }
