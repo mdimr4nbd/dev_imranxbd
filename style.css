@@ -184,7 +184,7 @@ a { color: inherit; touch-action: manipulation; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; flex: 1; }
 .brand .name { font-family: var(--font-brand); font-weight: 400; font-size: 1.35rem; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; padding-block: 2px; font-synthesis: none; }
 
-.mini { width: 30px; height: 30px; border-radius: 50%; padding: 1.5px; flex: none; background: conic-gradient(var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; cursor: pointer; }
+.mini { width: 30px; height: 30px; border-radius: 50%; padding: 1.5px; flex: none; background: conic-gradient(var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; cursor: pointer; overflow: hidden; }
 .mini span { width: 100%; height: 100%; border-radius: 50%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; position: relative; }
 .mini svg { width: 18px; height: 18px; display: block; }
 
@@ -196,8 +196,25 @@ a { color: inherit; touch-action: manipulation; }
 }
 .face svg { width: 70px; height: 70px; display: block; }
 
-.profile-container { width: 280px; max-width: 100%; display: flex; align-items: flex-end; justify-content: center; }
-.profile-photo { width: 100%; height: auto; display: block; object-fit: contain; }
+/* Circular Profile Logo Fitting */
+.profile-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
 
 .actions { display: flex; align-items: center; gap: 8px; }
 .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: background .12s, border-color .12s, transform .1s; flex: none; }
