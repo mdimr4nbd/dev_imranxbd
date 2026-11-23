@@ -407,7 +407,7 @@
     }
   })();
 
-  /* Live code box */
+  /* Live code box (Flicker-free block chunks) */
   (function () {
     var box = $('#codeBox'); if (!box) return;
     var codeCard = box.closest('.code'), codeVisible = true;
@@ -432,7 +432,9 @@
       [['', 'portfolio.'], ['k', 'launch'], ['', '();']]
     ];
     function copy(hidden) {
-      var wrap = document.createElement('span'); if (hidden) wrap.setAttribute('aria-hidden', 'true');
+      var wrap = document.createElement('div');
+      wrap.className = 'code-chunk';
+      if (hidden) wrap.setAttribute('aria-hidden', 'true');
       CODE.forEach(function (line, i) {
         var l = document.createElement('span'); l.className = 'l';
         var n = document.createElement('span'); n.className = 'n'; n.textContent = String(i + 1); l.appendChild(n);
