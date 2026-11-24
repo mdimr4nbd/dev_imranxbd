@@ -445,18 +445,15 @@
     }
   }
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
-    /* Ultra-smooth staggered fly-in on every load & refresh */
+    /* Full page single smooth fly-in without double-flicker */
   (function () {
-    var items = $$('.hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
+    var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
+    var played = false;
     function runFlyIn() {
-      items.forEach(function (el) {
-        el.style.transition = 'none';
-        el.classList.remove('fly-in');
-      });
-      void document.body.offsetHeight;
+      if (played) return;
+      played = true;
       items.forEach(function (el, i) {
-        el.style.transition = '';
-        el.style.transitionDelay = reduce ? '0ms' : (i * 75) + 'ms';
+        el.style.transitionDelay = reduce ? '0ms' : (i * 65) + 'ms';
       });
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
@@ -466,11 +463,14 @@
         });
       });
     }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', runFlyIn);
-    } else {
-      runFlyIn();
-    }
-    window.addEventListener('pageshow', runFlyIn);
-  })();
+    runFlyIn();
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) {
+        played = false;
+        items.forEach(function (el) { el.classList.remove('fly-in'); });
+        void document.body.offsetHeight;
+        runFlyIn();
+      }
+    });
+  })(); 
 })();
