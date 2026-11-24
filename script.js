@@ -86,7 +86,7 @@
   var toastEl = $('#toast'), toastT;
   function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
 
-  /* Falling Streak Particles with Glowing Head (No Dots) */
+  /* Straight Falling Slow Streak Particles with Glowing Head & Fade Out */
   var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, streaks = [], cols = ['#5B8DFF', '#FF8F4F'];
   function fxColors() {
     var cs = getComputedStyle(root);
@@ -100,18 +100,18 @@
     cv.height = H;
   }
   function makeStreak(randomY) {
-    var len = 36 + Math.random() * 68;
-    var vy = 2.6 + Math.random() * 4.4;
-    var vx = -0.35 - Math.random() * 0.55;
+    var len = 34 + Math.random() * 54;
+    var vy = 0.65 + Math.random() * 1.15; /* Slow straight downward speed */
     return {
-      x: Math.random() * (W + 120),
-      y: randomY ? Math.random() * H : -len - Math.random() * 140,
+      x: Math.random() * W,
+      y: randomY ? Math.random() * (H * 0.85) : -len - Math.random() * 140,
       len: len,
-      vx: vx,
       vy: vy,
-      w: 1.1 + Math.random() * 1.1,
+      w: 1.1 + Math.random() * 0.9,
       c: Math.random() < 0.5 ? 0 : 1,
-      a: 0.45 + Math.random() * 0.5
+      baseA: 0.55 + Math.random() * 0.4,
+      fadeStart: H * (0.45 + Math.random() * 0.35),
+      fadeEnd: H * (0.78 + Math.random() * 0.2)
     };
   }
   function fxInit() {
@@ -125,26 +125,29 @@
     cx.clearRect(0, 0, W, H);
     for (var i = 0; i < streaks.length; i++) {
       var s = streaks[i];
-      var col = cols[s.c];
-      var speed = Math.hypot(s.vx, s.vy) || 1;
-      var ux = s.vx / speed;
-      var uy = s.vy / speed;
-      var tailX = s.x - ux * s.len;
-      var tailY = s.y - uy * s.len;
+      var fade = 1;
+      if (s.y > s.fadeStart) {
+        fade = 1 - (s.y - s.fadeStart) / Math.max(1, (s.fadeEnd - s.fadeStart));
+      }
+      if (fade <= 0.01) continue;
 
-      /* Fading trail streak */
-      var grad = cx.createLinearGradient(tailX, tailY, s.x, s.y);
+      var alpha = s.baseA * Math.min(1, fade);
+      var col = cols[s.c];
+      var tailY = s.y - s.len;
+
+      /* Vertical fading trail streak */
+      var grad = cx.createLinearGradient(s.x, tailY, s.x, s.y);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.65, col);
       grad.addColorStop(1, '#ffffff');
 
       cx.save();
-      cx.globalAlpha = s.a;
+      cx.globalAlpha = alpha;
       cx.strokeStyle = grad;
       cx.lineWidth = s.w;
       cx.lineCap = 'round';
       cx.beginPath();
-      cx.moveTo(tailX, tailY);
+      cx.moveTo(s.x, tailY);
       cx.lineTo(s.x, s.y);
       cx.stroke();
 
@@ -153,7 +156,7 @@
       cx.shadowColor = col;
       cx.fillStyle = '#ffffff';
       cx.beginPath();
-      cx.arc(s.x, s.y, s.w * 1.15, 0, 6.2832);
+      cx.arc(s.x, s.y, s.w * 1.1, 0, 6.2832);
       cx.fill();
       cx.restore();
     }
@@ -164,9 +167,8 @@
       lastFx = ts;
       for (var i = 0; i < streaks.length; i++) {
         var s = streaks[i];
-        s.x += s.vx;
         s.y += s.vy;
-        if (s.y - s.len > H + 20 || s.x < -80) {
+        if (s.y >= s.fadeEnd || s.y - s.len > H) {
           streaks[i] = makeStreak(false);
         }
       }
