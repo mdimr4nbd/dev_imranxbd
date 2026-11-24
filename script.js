@@ -103,7 +103,7 @@
     p.x = Math.random() * W;
     p.y = first ? Math.random() * H : -40;      // ওপর থেকে শুরু
     p.r = 1 + Math.random() * 0.7;              // মাথার বিন্দু
-    p.len = 7 + Math.random() * 9;              // ছোট লেজের দৈর্ঘ্য
+    p.len = 10 + Math.random() * 10;              // ছোট লেজের দৈর্ঘ্য
     p.v = 0.45 + Math.random() * 0.3;           // নিচে নামার গতি
     p.life = first ? Math.floor(Math.random() * 350) : 0;
     p.max = 520 + Math.random() * 520;
