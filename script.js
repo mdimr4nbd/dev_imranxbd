@@ -445,4 +445,21 @@
     }
   }
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
+
+    /* Staggered fly-in animation on page load */
+  (function () {
+    if (reduce) return;
+    var items = $$('.hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
+    items.forEach(function (el, i) {
+      el.classList.add('fly-item');
+      el.style.transitionDelay = (i * 55) + 'ms';
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        items.forEach(function (el) {
+          el.classList.add('fly-in');
+        });
+      });
+    });
+  })();
 })();
