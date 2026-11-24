@@ -45,12 +45,10 @@
   font-family: "Rubik Wet Paint";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: url("./assets/rubik-wet-paint.woff2") format("woff2"),
        url("./fonts/rubik-wet-paint.woff2") format("woff2"),
-       url("./fonts/rubik-wet-paint.ttf") format("truetype"),
-       url("/assets/rubik-wet-paint.woff2") format("woff2"),
-       url("/fonts/rubik-wet-paint.woff2") format("woff2");
+       url("./fonts/rubik-wet-paint.ttf") format("truetype");
 }
 
 :root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
