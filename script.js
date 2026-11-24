@@ -445,13 +445,18 @@
     }
   }
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
-    /* Staggered fly-in animation on first load & refresh */
+    /* Ultra-smooth staggered fly-in on every load & refresh */
   (function () {
     var items = $$('.hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
     function runFlyIn() {
-      items.forEach(function (el, i) {
+      items.forEach(function (el) {
+        el.style.transition = 'none';
         el.classList.remove('fly-in');
-        el.style.transitionDelay = reduce ? '0ms' : (i * 55) + 'ms';
+      });
+      void document.body.offsetHeight;
+      items.forEach(function (el, i) {
+        el.style.transition = '';
+        el.style.transitionDelay = reduce ? '0ms' : (i * 75) + 'ms';
       });
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
@@ -461,9 +466,11 @@
         });
       });
     }
-    runFlyIn();
-    window.addEventListener('pageshow', function (e) {
-      if (e.persisted) runFlyIn();
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runFlyIn);
+    } else {
+      runFlyIn();
+    }
+    window.addEventListener('pageshow', runFlyIn);
   })();
 })();
