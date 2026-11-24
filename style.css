@@ -491,14 +491,13 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
   contain: layout style;
 }
 
-/* Ultra-smooth staggered fly-in on every load & refresh */
-.hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer {
+/* Full page (including topbar) single smooth fly-in */
+.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer {
   opacity: 0;
-  transform: translate3d(0, -14px, 0) scale(0.99);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+  transform: translate3d(0, -14px, 0);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .fly-in {
   opacity: 1 !important;
-  transform: translate3d(0, 0, 0) scale(1) !important;
+  transform: translate3d(0, 0, 0) !important;
 }
