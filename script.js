@@ -445,21 +445,25 @@
     }
   }
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
-
-    /* Staggered fly-in animation on page load */
+    /* Staggered fly-in animation on first load & refresh */
   (function () {
-    if (reduce) return;
     var items = $$('.hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
-    items.forEach(function (el, i) {
-      el.classList.add('fly-item');
-      el.style.transitionDelay = (i * 55) + 'ms';
-    });
-    requestAnimationFrame(function () {
+    function runFlyIn() {
+      items.forEach(function (el, i) {
+        el.classList.remove('fly-in');
+        el.style.transitionDelay = reduce ? '0ms' : (i * 55) + 'ms';
+      });
       requestAnimationFrame(function () {
-        items.forEach(function (el) {
-          el.classList.add('fly-in');
+        requestAnimationFrame(function () {
+          items.forEach(function (el) {
+            el.classList.add('fly-in');
+          });
         });
       });
+    }
+    runFlyIn();
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) runFlyIn();
     });
   })();
 })();
