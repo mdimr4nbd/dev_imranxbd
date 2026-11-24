@@ -123,7 +123,6 @@
     for (var i = 0; i < ps.length; i++) {
       var p = ps[i];
       var progress = p.life / p.max;
-      /* শুরুতে স্মুথ ফেইড-ইন এবং নিচে নামার সাথে সাথে ধীরে ধীরে ভ্যানিশ */
       var fadeIn = Math.min(1, p.life / 45);
       var fadeOut = progress > 0.45 ? Math.max(0, 1 - (progress - 0.45) / 0.55) : 1;
       var alpha = 0.85 * fadeIn * fadeOut;
@@ -132,7 +131,6 @@
       var col = cols[p.c];
       var tailY = p.y - p.len;
 
-      /* লেজ (gradient রেখা) */
       var grad = cx.createLinearGradient(p.x, tailY, p.x, p.y);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.65, col);
@@ -148,7 +146,6 @@
       cx.lineTo(p.x, p.y);
       cx.stroke();
 
-      /* মাথা (গ্লোয়িং বিন্দু) */
       cx.shadowBlur = 10;
       cx.shadowColor = col;
       cx.fillStyle = '#ffffff';
