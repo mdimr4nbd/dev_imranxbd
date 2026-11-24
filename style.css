@@ -476,16 +476,20 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 }
 
 
-/* Fast, clear & smooth staggered fly-in on every load & refresh */
+/* Smooth medium-paced sequential fly-in (Desktop, Android & iPhone) */
 .topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer {
   opacity: 0;
-  transform: translate3d(0, -32px, 0) scale(0.96);
-  transition: opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1), transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  -webkit-transform: translate3d(0, -16px, 0);
+  transform: translate3d(0, -16px, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), -webkit-transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .fly-in {
   opacity: 1 !important;
-  transform: translate3d(0, 0, 0) scale(1) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
 }
 
 
