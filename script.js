@@ -86,8 +86,8 @@
   var toastEl = $('#toast'), toastT;
   function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
 
-  /* Straight Falling Slow Streak Particles with Glowing Head & Fade Out */
-  var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, streaks = [], cols = ['#5B8DFF', '#FF8F4F'];
+  /* Straight Falling Streak Particles with Glowing Head & Life Fade-out */
+  var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, ps = [], cols = ['#5B8DFF', '#FF8F4F'];
   function fxColors() {
     var cs = getComputedStyle(root);
     cols = [cs.getPropertyValue('--accent').trim() || cols[0], cs.getPropertyValue('--accent-2').trim() || cols[1]];
@@ -99,44 +99,41 @@
     cv.width = W;
     cv.height = H;
   }
-  function makeStreak(randomY) {
-    var len = 34 + Math.random() * 54;
-    var vy = 0.65 + Math.random() * 1.15; /* Slow straight downward speed */
-    return {
-      x: Math.random() * W,
-      y: randomY ? Math.random() * (H * 0.85) : -len - Math.random() * 140,
-      len: len,
-      vy: vy,
-      w: 1.1 + Math.random() * 0.9,
-      c: Math.random() < 0.5 ? 0 : 1,
-      baseA: 0.55 + Math.random() * 0.4,
-      fadeStart: H * (0.45 + Math.random() * 0.35),
-      fadeEnd: H * (0.78 + Math.random() * 0.2)
-    };
+  function spawn(p, first) {
+    p.x = Math.random() * W;
+    p.y = first ? Math.random() * H : -40;      // ওপর থেকে শুরু
+    p.r = 1 + Math.random() * 0.7;              // মাথার বিন্দু
+    p.len = 16 + Math.random() * 18;            // লেজের দৈর্ঘ্য
+    p.v = 0.45 + Math.random() * 0.3;           // নিচে নামার গতি
+    p.life = first ? Math.floor(Math.random() * 350) : 0;
+    p.max = 520 + Math.random() * 520;
+    p.c = Math.random() < 0.5 ? 0 : 1;
   }
   function fxInit() {
-    streaks = [];
-    var count = W < 600 ? 16 : 26;
+    ps = [];
+    var count = W < 600 ? 18 : 28;
     for (var i = 0; i < count; i++) {
-      streaks.push(makeStreak(true));
+      var p = {};
+      spawn(p, true);
+      ps.push(p);
     }
   }
   function fxDraw() {
     cx.clearRect(0, 0, W, H);
-    for (var i = 0; i < streaks.length; i++) {
-      var s = streaks[i];
-      var fade = 1;
-      if (s.y > s.fadeStart) {
-        fade = 1 - (s.y - s.fadeStart) / Math.max(1, (s.fadeEnd - s.fadeStart));
-      }
-      if (fade <= 0.01) continue;
+    for (var i = 0; i < ps.length; i++) {
+      var p = ps[i];
+      var progress = p.life / p.max;
+      /* শুরুতে স্মুথ ফেইড-ইন এবং নিচে নামার সাথে সাথে ধীরে ধীরে ভ্যানিশ */
+      var fadeIn = Math.min(1, p.life / 45);
+      var fadeOut = progress > 0.45 ? Math.max(0, 1 - (progress - 0.45) / 0.55) : 1;
+      var alpha = 0.85 * fadeIn * fadeOut;
+      if (alpha <= 0.01) continue;
 
-      var alpha = s.baseA * Math.min(1, fade);
-      var col = cols[s.c];
-      var tailY = s.y - s.len;
+      var col = cols[p.c];
+      var tailY = p.y - p.len;
 
-      /* Vertical fading trail streak */
-      var grad = cx.createLinearGradient(s.x, tailY, s.x, s.y);
+      /* লেজ (gradient রেখা) */
+      var grad = cx.createLinearGradient(p.x, tailY, p.x, p.y);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.65, col);
       grad.addColorStop(1, '#ffffff');
@@ -144,19 +141,19 @@
       cx.save();
       cx.globalAlpha = alpha;
       cx.strokeStyle = grad;
-      cx.lineWidth = s.w;
+      cx.lineWidth = p.r * 1.15;
       cx.lineCap = 'round';
       cx.beginPath();
-      cx.moveTo(s.x, tailY);
-      cx.lineTo(s.x, s.y);
+      cx.moveTo(p.x, tailY);
+      cx.lineTo(p.x, p.y);
       cx.stroke();
 
-      /* Glowing head */
-      cx.shadowBlur = 12;
+      /* মাথা (গ্লোয়িং বিন্দু) */
+      cx.shadowBlur = 10;
       cx.shadowColor = col;
       cx.fillStyle = '#ffffff';
       cx.beginPath();
-      cx.arc(s.x, s.y, s.w * 1.1, 0, 6.2832);
+      cx.arc(p.x, p.y, p.r, 0, 6.2832);
       cx.fill();
       cx.restore();
     }
@@ -165,11 +162,12 @@
   function fxStep(ts) {
     if (!document.hidden && !active && ts - lastFx > 16) {
       lastFx = ts;
-      for (var i = 0; i < streaks.length; i++) {
-        var s = streaks[i];
-        s.y += s.vy;
-        if (s.y >= s.fadeEnd || s.y - s.len > H) {
-          streaks[i] = makeStreak(false);
+      for (var i = 0; i < ps.length; i++) {
+        var p = ps[i];
+        p.y += p.v;
+        p.life++;
+        if (p.life >= p.max || p.y - p.len > H) {
+          spawn(p, false);
         }
       }
       fxDraw();
