@@ -3,71 +3,22 @@
     name: 'ALL IN ONE x IMRAN',
     short: 'ALL IN ONE x IMRAN',
     email: 'you@example.com',
-    whatsappNumber: '8801XXXXXXXXX',
     greetings: [
       'Assalamualaikum - আসসালামু আলাইকুম',
       'এমন ওয়েবসাইট বানাতে যোগাযোগ করুন!',
       'Contact me to build your dream website!'
     ],
     channels: {
-      webdev: {
-        label: 'Free Fire Top-Up',
-        color: 'var(--accent)',
-        icon: '#i-diamond',
-        stroke: true,
-        title: 'Free Fire Top-Up',
-        sub: 'UID Top-Up • Instant Diamond Delivery',
-        pill: 'Active 24/7',
-        desc: 'Fast and trusted Free Fire Diamond Top-Up service—get instant delivery using only your Player UID.',
-        cta: 'Top-Up Here',
-        url: '#topup',
-        openTopup: true
-      },
-      branding: {
-        label: 'Creative Studio',
-        color: 'var(--accent-2)',
-        icon: '#i-sparkle',
-        stroke: true,
-        title: 'Creative Studio',
-        sub: 'UI/UX & Digital Identity',
-        pill: 'Open Now',
-        desc: 'Premium UI/UX design, brand visuals, and high-converting landing pages crafted with precision.',
-        cta: 'Start a Project',
-        url: 'https://wa.me/8801XXXXXXXXX'
-      },
-      messenger: {
-        label: 'Messenger',
-        color: '#0084FF',
-        icon: '#i-messenger',
-        title: 'Messenger',
-        sub: '@yourusername',
-        pill: 'Active now',
-        desc: 'Chat on Messenger for quick questions and project updates.',
-        cta: 'Message on Messenger',
-        url: 'https://m.me/yourusername'
-      },
-      whatsapp: {
-        label: 'WhatsApp',
-        color: '#25D366',
-        icon: '#i-whatsapp',
-        title: 'WhatsApp',
-        sub: '+880 • Official Business',
-        pill: 'Fast Reply',
-        desc: 'Connect directly on WhatsApp for fast consultations, order updates, and dedicated client communication.',
-        cta: 'Message on WhatsApp',
-        url: 'https://wa.me/8801XXXXXXXXX'
-      },
-      telegram: {
-        label: 'Telegram',
-        color: '#26A5E4',
-        icon: '#i-telegram',
-        title: 'Telegram',
-        sub: '@yourusername',
-        pill: 'Online',
-        desc: 'Reach me on Telegram for files, quick calls and project updates.',
-        cta: 'Message on Telegram',
-        url: 'https://t.me/yourusername'
-      }
+      webdev: { label: 'Free Fire Top-Up', color: 'var(--accent)', icon: '#i-diamond', stroke: true, title: 'Free Fire Top-Up', sub: 'UID Top-Up • Instant Diamond Delivery', pill: 'Active 24/7',
+        desc: 'Fast and trusted Free Fire Diamond Top-Up service—get instant delivery using only your Player UID.', cta: 'Top-Up Here', url: '#topup', openTopup: true },
+      branding: { label: 'Creative Studio', color: 'var(--accent-2)', icon: '#i-sparkle', stroke: true, title: 'Creative Studio', sub: 'UI/UX & Digital Identity', pill: 'Open Now',
+        desc: 'Premium UI/UX design, brand visuals, and high-converting landing pages crafted with precision.', cta: 'Start a Project', url: 'https://wa.me/8801XXXXXXXXX' },
+      messenger: { label: 'Messenger', color: '#0084FF', icon: '#i-messenger', title: 'Messenger', sub: '@yourusername', pill: 'Active now',
+        desc: 'Chat on Messenger for quick questions and project updates.', cta: 'Message on Messenger', url: 'https://m.me/yourusername' },
+      whatsapp: { label: 'WhatsApp', color: '#25D366', icon: '#i-whatsapp', title: 'WhatsApp', sub: '+880 • Official Business', pill: 'Fast Reply',
+        desc: 'Connect directly on WhatsApp for fast consultations, order updates, and dedicated client communication.', cta: 'Message on WhatsApp', url: 'https://wa.me/8801XXXXXXXXX' },
+      telegram: { label: 'Telegram', color: '#26A5E4', icon: '#i-telegram', title: 'Telegram', sub: '@yourusername', pill: 'Online',
+        desc: 'Reach me on Telegram for files, quick calls and project updates.', cta: 'Message on Telegram', url: 'https://t.me/yourusername' }
     },
     socials: [
       { title: 'Follow Me Twitter', sub: 'Tweets & Updates', url: 'https://twitter.com/yourusername', color: '#1DA1F2', icon: '#i-twitter' },
@@ -84,15 +35,12 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Name, avatar, year */
   $$('[data-name]').forEach(function (el) { el.textContent = CFG.name; });
   $$('[data-short]').forEach(function (el) { el.textContent = CFG.short; });
 
   var logoUid = 0;
-  var yearEl = $('#year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  $('#year').textContent = new Date().getFullYear();
 
-  /* Social rows (skip rebuilding if already pre-rendered in HTML) */
   var sBox = $('#socials');
   if (sBox && !sBox.children.length) {
     CFG.socials.forEach(function (s) {
@@ -107,7 +55,6 @@
     });
   }
 
-  /* Rotating rings: GPU-accelerated CSS rotation */
   var NS = 'http://www.w3.org/2000/svg';
   function mk(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
   function addFx(ring, orbit) {
@@ -122,7 +69,6 @@
     }
   }
   $$('.ring').forEach(function (r) { addFx(r, !!r.closest('.lrow')); });
-
   var av = $('.avatar');
   if (av) {
     var hid = 'hg_' + (++logoUid);
@@ -137,55 +83,92 @@
     av.insertBefore(hs, av.firstChild);
   }
 
-  /* Toast */
   var toastEl = $('#toast'), toastT;
-  function toast(msg) {
-    if (!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    clearTimeout(toastT);
-    toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
-  }
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
 
-  /* Lightweight Particles */
-  var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, ps = [], cols = ['#5B8DFF', '#FF8F4F'];
-  var active = null;
+  /* Falling Streak Particles with Glowing Head (No Dots) */
+  var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, streaks = [], cols = ['#5B8DFF', '#FF8F4F'];
   function fxColors() {
     var cs = getComputedStyle(root);
     cols = [cs.getPropertyValue('--accent').trim() || cols[0], cs.getPropertyValue('--accent-2').trim() || cols[1]];
     if (reduce) fxDraw();
   }
-  function fxSize() { W = window.innerWidth; H = window.innerHeight; cv.width = W; cv.height = H; }
+  function fxSize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = W;
+    cv.height = H;
+  }
+  function makeStreak(randomY) {
+    var len = 36 + Math.random() * 68;
+    var vy = 2.6 + Math.random() * 4.4;
+    var vx = -0.35 - Math.random() * 0.55;
+    return {
+      x: Math.random() * (W + 120),
+      y: randomY ? Math.random() * H : -len - Math.random() * 140,
+      len: len,
+      vx: vx,
+      vy: vy,
+      w: 1.1 + Math.random() * 1.1,
+      c: Math.random() < 0.5 ? 0 : 1,
+      a: 0.45 + Math.random() * 0.5
+    };
+  }
   function fxInit() {
-    ps = [];
-    var count = W < 600 ? 18 : 26;
+    streaks = [];
+    var count = W < 600 ? 16 : 26;
     for (var i = 0; i < count; i++) {
-      ps.push({ x: Math.random() * W, y: Math.random() * H, r: 1 + Math.random() * 1.6, vx: (Math.random() - .5) * .22, vy: -.08 - Math.random() * .25, c: i % 2, a: .25 + Math.random() * .45 });
+      streaks.push(makeStreak(true));
     }
   }
   function fxDraw() {
     cx.clearRect(0, 0, W, H);
-    for (var i = 0; i < ps.length; i++) {
-      var p = ps[i];
-      cx.globalAlpha = p.a;
-      cx.fillStyle = cols[p.c];
+    for (var i = 0; i < streaks.length; i++) {
+      var s = streaks[i];
+      var col = cols[s.c];
+      var speed = Math.hypot(s.vx, s.vy) || 1;
+      var ux = s.vx / speed;
+      var uy = s.vy / speed;
+      var tailX = s.x - ux * s.len;
+      var tailY = s.y - uy * s.len;
+
+      /* Fading trail streak */
+      var grad = cx.createLinearGradient(tailX, tailY, s.x, s.y);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(0.65, col);
+      grad.addColorStop(1, '#ffffff');
+
+      cx.save();
+      cx.globalAlpha = s.a;
+      cx.strokeStyle = grad;
+      cx.lineWidth = s.w;
+      cx.lineCap = 'round';
       cx.beginPath();
-      cx.arc(p.x, p.y, p.r, 0, 6.2832);
+      cx.moveTo(tailX, tailY);
+      cx.lineTo(s.x, s.y);
+      cx.stroke();
+
+      /* Glowing head */
+      cx.shadowBlur = 12;
+      cx.shadowColor = col;
+      cx.fillStyle = '#ffffff';
+      cx.beginPath();
+      cx.arc(s.x, s.y, s.w * 1.15, 0, 6.2832);
       cx.fill();
+      cx.restore();
     }
-    cx.globalAlpha = 1;
   }
   var lastFx = 0;
   function fxStep(ts) {
-    if (!document.hidden && !active && ts - lastFx > 33) {
+    if (!document.hidden && !active && ts - lastFx > 16) {
       lastFx = ts;
-      for (var i = 0; i < ps.length; i++) {
-        var p = ps[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.y < -6) { p.y = H + 6; p.x = Math.random() * W; }
-        if (p.x < -6) p.x = W + 6;
-        if (p.x > W + 6) p.x = -6;
+      for (var i = 0; i < streaks.length; i++) {
+        var s = streaks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        if (s.y - s.len > H + 20 || s.x < -80) {
+          streaks[i] = makeStreak(false);
+        }
       }
       fxDraw();
     }
@@ -195,7 +178,6 @@
   window.addEventListener('resize', function () { fxSize(); fxInit(); if (reduce) fxDraw(); }, { passive: true });
   if (reduce) fxDraw(); else requestAnimationFrame(fxStep);
 
-  /* Custom Cursor */
   (function () {
     var dot = $('#cDot'), ring = $('#cRing');
     if (!dot || !ring || reduce || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -221,17 +203,9 @@
     document.addEventListener('mouseleave', function () { vis = false; dot.style.opacity = '0'; ring.style.opacity = '0'; }, { passive: true });
   })();
 
-  /* Theme */
   var themeUse = $('use', $('#themeIco'));
-  function isLight() {
-    var a = root.getAttribute('data-theme');
-    if (a) return a === 'light';
-    return window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches;
-  }
-  function syncTheme() {
-    if (themeUse) themeUse.setAttribute('href', isLight() ? '#i-moon' : '#i-sun');
-    fxColors();
-  }
+  function isLight() { var a = root.getAttribute('data-theme'); if (a) return a === 'light'; return window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches; }
+  function syncTheme() { themeUse.setAttribute('href', isLight() ? '#i-moon' : '#i-sun'); fxColors(); }
   try { var st = localStorage.getItem('pf-theme'); if (st) root.setAttribute('data-theme', st); } catch (e) {}
   syncTheme();
   function toggleTheme() {
@@ -240,11 +214,9 @@
     try { localStorage.setItem('pf-theme', next); } catch (e) {}
     syncTheme();
   }
-  var themeBtn = $('#themeBtn');
-  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+  $('#themeBtn').addEventListener('click', toggleTheme);
 
-  /* Overlays */
-  var lastFocus = null;
+  var active = null, lastFocus = null;
   var bgSections = $$('.topbar, .page, footer');
   function setBgLocked(locked) {
     for (var i = 0; i < bgSections.length; i++) {
@@ -253,7 +225,7 @@
     }
   }
   function openOv(ov) {
-    if (!ov || active === ov) return;
+    if (active === ov) return;
     lastFocus = document.activeElement;
     active = ov;
     ov.classList.add('open');
@@ -289,7 +261,6 @@
     });
   });
 
-  /* Design picker */
   function setDesign(d) {
     if (d === 'sunset') d = 'emerald';
     if (!d || d === 'cosmic') root.removeAttribute('data-design');
@@ -297,12 +268,11 @@
     $$('.dopt').forEach(function (b) { b.setAttribute('aria-checked', b.getAttribute('data-d') === d ? 'true' : 'false'); });
     fxColors();
   }
-  var sd = 'emerald';
-  try { sd = localStorage.getItem('pf-design2') || 'emerald'; } catch (e) {}
+  var sd = 'emerald'; try { sd = localStorage.getItem('pf-design2') || 'emerald'; } catch (e) {}
   setDesign(sd);
-  var designBtn = $('#designBtn');
-  if (designBtn) designBtn.addEventListener('click', function () { openOv($('#designOv')); });
-
+  $('#designBtn').addEventListener('click', function () {
+    openOv($('#designOv'));
+  });
   $$('.dopt').forEach(function (b) {
     b.addEventListener('click', function () {
       var d = b.getAttribute('data-d');
@@ -313,25 +283,19 @@
     });
   });
 
-  /* Channel tabs and detail card */
   var ccard = $('#ccard'), chan = 'whatsapp';
   var cIcon = $('#cIcon'), cIcoWrap = $('#cIcoWrap'), cTitle = $('#cTitle'), cSub = $('#cSub'), cPill = $('#cPill'), cDesc = $('#cDesc'), cCtaTxt = $('#cCtaTxt'), cCta = $('#cCta');
   var tabEls = $$('.tab');
 
   function setChan(k) {
-    chan = k;
-    var d = CFG.channels[k];
+    chan = k; var d = CFG.channels[k];
     ccard.style.setProperty('--c', d.color);
     var idx = ORDER.indexOf(k);
     ccard.style.setProperty('--n', idx >= 0 ? (((idx + .5) / 3) * 100) + '%' : (k === 'webdev' ? '25%' : '75%'));
     cIcon.setAttribute('href', d.icon);
     cIcoWrap.classList.toggle('stroke', !!d.stroke);
-    cTitle.textContent = d.title;
-    cSub.textContent = d.sub;
-    cPill.textContent = d.pill;
-    cDesc.textContent = d.desc;
-    cCtaTxt.textContent = d.cta;
-    cCta.href = d.url;
+    cTitle.textContent = d.title; cSub.textContent = d.sub; cPill.textContent = d.pill; cDesc.textContent = d.desc;
+    cCtaTxt.textContent = d.cta; cCta.href = d.url;
     if (d.openTopup) { cCta.removeAttribute('target'); cCta.removeAttribute('rel'); }
     else { cCta.target = '_blank'; cCta.rel = 'noopener noreferrer'; }
     for (var i = 0; i < tabEls.length; i++) {
@@ -345,7 +309,6 @@
     }
   });
   setTimeout(function () { ccard.classList.add('settled'); }, 400);
-
   function switchChan(k) {
     if (k === chan) return;
     ccard.classList.add('settled');
@@ -370,7 +333,6 @@
   }
   setChan('whatsapp');
 
-  /* Free Fire Top-Up Page Logic */
   (function () {
     var selectedPkg = '115 Diamond', selectedPrice = '৳85';
     var dmCards = $$('.dm-card'), pkgLbl = $('#selectedPkgLabel'), uidInput = $('#ffUidInput');
@@ -402,12 +364,11 @@
         var msg = 'Assalamualaikum! Free Fire Top-Up Order:%0A' +
           'Player UID: ' + encodeURIComponent(uid) + '%0A' +
           'Package: ' + encodeURIComponent(selectedPkg) + ' (' + encodeURIComponent(selectedPrice) + ')';
-        window.open('https://wa.me/' + CFG.whatsappNumber + '?text=' + msg, '_blank', 'noopener,noreferrer');
+        window.open('https://wa.me/8801XXXXXXXXX?text=' + msg, '_blank', 'noopener,noreferrer');
       });
     }
   })();
 
-  /* Live code box (Flicker-free block chunks) */
   (function () {
     var box = $('#codeBox'); if (!box) return;
     var codeCard = box.closest('.code'), codeVisible = true;
@@ -432,9 +393,7 @@
       [['', 'portfolio.'], ['k', 'launch'], ['', '();']]
     ];
     function copy(hidden) {
-      var wrap = document.createElement('div');
-      wrap.className = 'code-chunk';
-      if (hidden) wrap.setAttribute('aria-hidden', 'true');
+      var wrap = document.createElement('span'); if (hidden) wrap.setAttribute('aria-hidden', 'true');
       CODE.forEach(function (line, i) {
         var l = document.createElement('span'); l.className = 'l';
         var n = document.createElement('span'); n.className = 'n'; n.textContent = String(i + 1); l.appendChild(n);
@@ -468,13 +427,8 @@
     setInterval(tick, 1000);
   })();
 
-  /* Typing greeting */
   function graphemes(t) {
-    try {
-      if (window.Intl && Intl.Segmenter) {
-        return Array.from(new Intl.Segmenter('bn', { granularity: 'grapheme' }).segment(t), function (x) { return x.segment; });
-      }
-    } catch (e) {}
+    try { if (window.Intl && Intl.Segmenter) return Array.from(new Intl.Segmenter('bn', { granularity: 'grapheme' }).segment(t), function (x) { return x.segment; }); } catch (e) {}
     return Array.from(t);
   }
   var typed = $('#typed'), phrases = CFG.greetings;
@@ -490,5 +444,5 @@
       for (var i = 1; i <= n.length; i++) { typed.textContent = n.slice(0, i).join(''); await sleep(55); }
     }
   }
-  if (!reduce && phrases.length > 1) typeLoop(); else if (typed) typed.textContent = phrases[0];
+  if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
 })();
