@@ -490,11 +490,12 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 .hero {
   contain: layout style;
 }
-/* Page load staggered fly-in effect (zero flicker) */
+
+/* Ultra-smooth staggered fly-in on every load & refresh */
 .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer {
   opacity: 0;
-  transform: translate3d(0, -18px, 0) scale(0.985);
-  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, -14px, 0) scale(0.99);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 .fly-in {
