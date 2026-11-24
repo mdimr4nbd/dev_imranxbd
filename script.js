@@ -101,10 +101,10 @@
   }
   function spawn(p, first) {
     p.x = Math.random() * W;
-    p.y = first ? Math.random() * H : -40;      // ওপর থেকে শুরু
-    p.r = 1 + Math.random() * 0.7;              // মাথার বিন্দু
-    p.len = 10 + Math.random() * 10;              // ছোট লেজের দৈর্ঘ্য
-    p.v = 0.45 + Math.random() * 0.3;           // নিচে নামার গতি
+    p.y = first ? Math.random() * H : -40;
+    p.r = 1 + Math.random() * 0.7;
+    p.len = 10 + Math.random() * 10;
+    p.v = 0.45 + Math.random() * 0.3;
     p.life = first ? Math.floor(Math.random() * 350) : 0;
     p.max = 520 + Math.random() * 520;
     p.c = Math.random() < 0.5 ? 0 : 1;
@@ -123,7 +123,6 @@
     for (var i = 0; i < ps.length; i++) {
       var p = ps[i];
       var progress = p.life / p.max;
-      /* শুরুতে স্মুথ ফেইড-ইন এবং নিচে নামার সাথে সাথে ধীরে ধীরে ভ্যানিশ */
       var fadeIn = Math.min(1, p.life / 45);
       var fadeOut = progress > 0.45 ? Math.max(0, 1 - (progress - 0.45) / 0.55) : 1;
       var alpha = 0.85 * fadeIn * fadeOut;
@@ -132,7 +131,6 @@
       var col = cols[p.c];
       var tailY = p.y - p.len;
 
-      /* লেজ (gradient রেখা) */
       var grad = cx.createLinearGradient(p.x, tailY, p.x, p.y);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.65, col);
@@ -148,7 +146,6 @@
       cx.lineTo(p.x, p.y);
       cx.stroke();
 
-      /* মাথা (গ্লোয়িং বিন্দু) */
       cx.shadowBlur = 10;
       cx.shadowColor = col;
       cx.fillStyle = '#ffffff';
@@ -203,18 +200,13 @@
     document.addEventListener('mouseleave', function () { vis = false; dot.style.opacity = '0'; ring.style.opacity = '0'; }, { passive: true });
   })();
 
-  var themeUse = $('use', $('#themeIco'));
-  function isLight() { var a = root.getAttribute('data-theme'); if (a) return a === 'light'; return window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches; }
-  function syncTheme() { themeUse.setAttribute('href', isLight() ? '#i-moon' : '#i-sun'); fxColors(); }
-  try { var st = localStorage.getItem('pf-theme'); if (st) root.setAttribute('data-theme', st); } catch (e) {}
-  syncTheme();
-  function toggleTheme() {
-    var next = isLight() ? 'dark' : 'light';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('pf-theme', next); } catch (e) {}
-    syncTheme();
-  }
-  $('#themeBtn').addEventListener('click', toggleTheme);
+  /* Permanent Dark Mode */
+  root.removeAttribute('data-theme');
+  root.removeAttribute('data-mode');
+  try {
+    localStorage.removeItem('pf-theme');
+    localStorage.removeItem('pf-mode');
+  } catch (e) {}
 
   var active = null, lastFocus = null;
   var bgSections = $$('.topbar, .page, footer');
@@ -446,37 +438,20 @@
   }
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
 
-
-      /* Smooth medium-paced sequential fly-in (All devices & iPhone) */
+  /* Sequential delay assignment for 100% reliable refresh animation */
   (function () {
     var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
-    function playFlyIn() {
-      items.forEach(function (el) {
-        el.style.webkitTransition = 'none';
-        el.style.transition = 'none';
-        el.classList.remove('fly-in');
-      });
-      void document.body.offsetHeight;
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          items.forEach(function (el, i) {
-            el.style.webkitTransition = '';
-            el.style.transition = '';
-            el.style.webkitTransitionDelay = (i * 65) + 'ms';
-            el.style.transitionDelay = (i * 65) + 'ms';
-            el.classList.add('fly-in');
-          });
-        });
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', playFlyIn);
-    } else {
-      playFlyIn();
-    }
+    items.forEach(function (el, i) {
+      el.style.setProperty('--d', (i * 65) + 'ms');
+    });
     window.addEventListener('pageshow', function (e) {
-      if (e.persisted) playFlyIn();
+      if (e.persisted) {
+        items.forEach(function (el) {
+          el.style.animation = 'none';
+          void el.offsetHeight;
+          el.style.animation = '';
+        });
+      }
     });
   })();
-  
 })();
