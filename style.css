@@ -475,32 +475,19 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
   font-weight: 400 !important;
 }
 
-/* Anti-flicker GPU stabilization for header logo & brand text */
-.topbar, .brand, .brand .mini, .brand .name, .avatar, .face, h1.hname, h1.hname .grad, footer [data-short] {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.grad {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: auto;
-}
-.hero {
-  contain: layout style;
-}
 
-/* Full page (including topbar) single smooth fly-in */
+/* Fast, clear & smooth staggered fly-in on every load & refresh */
 .topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer {
   opacity: 0;
-  transform: translate3d(0, -14px, 0);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, -32px, 0) scale(0.96);
+  transition: opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1), transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 .fly-in {
   opacity: 1 !important;
-  transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
 }
+
 
 
 /* Desktop & Wide Screen 2-Column Layout (fills side whitespace) */
