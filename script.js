@@ -447,20 +447,25 @@
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
 
 
-    /* Fast & reliable staggered fly-in on every load & refresh */
+      /* Smooth medium-paced sequential fly-in (All devices & iPhone) */
   (function () {
     var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
     function playFlyIn() {
       items.forEach(function (el) {
+        el.style.webkitTransition = 'none';
         el.style.transition = 'none';
         el.classList.remove('fly-in');
       });
       void document.body.offsetHeight;
       requestAnimationFrame(function () {
-        items.forEach(function (el, i) {
-          el.style.transition = '';
-          el.style.transitionDelay = (i * 42) + 'ms';
-          el.classList.add('fly-in');
+        requestAnimationFrame(function () {
+          items.forEach(function (el, i) {
+            el.style.webkitTransition = '';
+            el.style.transition = '';
+            el.style.webkitTransitionDelay = (i * 65) + 'ms';
+            el.style.transitionDelay = (i * 65) + 'ms';
+            el.classList.add('fly-in');
+          });
         });
       });
     }
@@ -473,4 +478,5 @@
       if (e.persisted) playFlyIn();
     });
   })();
+  
 })();
