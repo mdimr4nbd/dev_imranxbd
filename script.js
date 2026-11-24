@@ -445,32 +445,32 @@
     }
   }
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
-    /* Full page single smooth fly-in without double-flicker */
+
+
+    /* Fast & reliable staggered fly-in on every load & refresh */
   (function () {
     var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
-    var played = false;
-    function runFlyIn() {
-      if (played) return;
-      played = true;
-      items.forEach(function (el, i) {
-        el.style.transitionDelay = reduce ? '0ms' : (i * 65) + 'ms';
+    function playFlyIn() {
+      items.forEach(function (el) {
+        el.style.transition = 'none';
+        el.classList.remove('fly-in');
       });
+      void document.body.offsetHeight;
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          items.forEach(function (el) {
-            el.classList.add('fly-in');
-          });
+        items.forEach(function (el, i) {
+          el.style.transition = '';
+          el.style.transitionDelay = (i * 42) + 'ms';
+          el.classList.add('fly-in');
         });
       });
     }
-    runFlyIn();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', playFlyIn);
+    } else {
+      playFlyIn();
+    }
     window.addEventListener('pageshow', function (e) {
-      if (e.persisted) {
-        played = false;
-        items.forEach(function (el) { el.classList.remove('fly-in'); });
-        void document.body.offsetHeight;
-        runFlyIn();
-      }
+      if (e.persisted) playFlyIn();
     });
-  })(); 
+  })();
 })();
