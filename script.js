@@ -147,9 +147,9 @@
     for (var i = 0; i < ps.length; i++) {
       var p = ps[i];
       var progress = p.life / p.max;
-      var fadeIn = Math.min(1, p.life / 45);
-      var fadeOut = progress > 0.45 ? Math.max(0, 1 - (progress - 0.45) / 0.55) : 1;
-      var alpha = 0.85 * fadeIn * fadeOut;
+      var fadeIn = p.life < 45 ? p.life / 45 : 1;
+      var fadeOut = progress > 0.45 ? (1 - (progress - 0.45) / 0.55) : 1;
+      var alpha = 0.85 * fadeIn * (fadeOut > 0 ? fadeOut : 0);
       if (alpha <= 0.01) continue;
 
       var col = cols[p.c];
@@ -160,19 +160,18 @@
       grad.addColorStop(0.6, col);
       grad.addColorStop(1, '#ffffff');
 
-      cx.save();
       cx.globalAlpha = alpha;
 
-      /* পেছনে চিকন হয়ে শেষ হওয়া লেজ (Tapered Comet Tail) */
+      /* পেছনে চিকন হয়ে শেষ হওয়া লেজ */
       cx.fillStyle = grad;
       cx.beginPath();
-      cx.moveTo(p.x, tailY);                    // একদম চিকন সুঁইয়ের মতো শেষ বিন্দু
-      cx.lineTo(p.x - p.r * 0.9, p.y);          // মাথার বাম পাশ
-      cx.lineTo(p.x + p.r * 0.9, p.y);          // মাথার ডান পাশ
+      cx.moveTo(p.x, tailY);
+      cx.lineTo(p.x - p.r * 0.9, p.y);
+      cx.lineTo(p.x + p.r * 0.9, p.y);
       cx.closePath();
       cx.fill();
 
-      /* মাথা (আগের মতোই গ্লোয়িং বিন্দু, সাইজ ছোট) */
+      /* ছোট গ্লোয়িং মাথা */
       cx.fillStyle = col;
       cx.beginPath();
       cx.arc(p.x, p.y, p.r * 1.9, 0, 6.2832);
@@ -181,17 +180,20 @@
       cx.beginPath();
       cx.arc(p.x, p.y, p.r, 0, 6.2832);
       cx.fill();
-      cx.restore();
     }
+    cx.globalAlpha = 1;
   }
-  var lastFx = 0;
+  var lastTs = 0;
   function fxStep(ts) {
-    if (!document.hidden && !active && ts - lastFx > 16) {
-      lastFx = ts;
+    if (!lastTs) lastTs = ts;
+    var dt = (ts - lastTs) / 16.6667;
+    if (dt > 3) dt = 1;
+    lastTs = ts;
+    if (!document.hidden && !active && dt > 0) {
       for (var i = 0; i < ps.length; i++) {
         var p = ps[i];
-        p.y += p.v;
-        p.life++;
+        p.y += p.v * dt;
+        p.life += dt;
         if (p.life >= p.max || p.y - p.len > H) {
           spawn(p, false);
         }
@@ -208,13 +210,17 @@
     var dot = $('#cDot'), ring = $('#cRing');
     if (!dot || !ring || reduce || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     var tx = -100, ty = -100, rx = -100, ry = -100, vis = false, raf = false;
-    function render() {
-      rx += (tx - rx) * 0.24;
-      ry += (ty - ry) * 0.24;
+    var lastC = 0;
+    function render(ts) {
+      var dt = lastC ? Math.min(2.5, (ts - lastC) / 16.6667) : 1;
+      lastC = ts;
+      var ease = 1 - Math.pow(0.76, dt);
+      rx += (tx - rx) * ease;
+      ry += (ty - ry) * ease;
       dot.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0)';
       ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
-      if (Math.abs(tx - rx) > 0.2 || Math.abs(ty - ry) > 0.2) requestAnimationFrame(render);
-      else raf = false;
+      if (Math.abs(tx - rx) > 0.15 || Math.abs(ty - ry) > 0.15) requestAnimationFrame(render);
+      else { raf = false; lastC = 0; }
     }
     document.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse') return;
@@ -559,7 +565,7 @@
           if (!entry.isIntersecting) return;
           var target = entry.target;
           io.unobserve(target);
-          target.style.setProperty('--sd', (batchCount * 55) + 'ms');
+          target.style.setProperty('--sd', (batchCount * 40) + 'ms');
           batchCount++;
           clearTimeout(batchTimer);
           batchTimer = setTimeout(function () { batchCount = 0; }, 120);
@@ -570,7 +576,7 @@
             target.removeEventListener('animationend', onEnd);
           });
         });
-      }, { rootMargin: '0px 0px -30px 0px', threshold: 0.06 });
+      }, { rootMargin: '0px 0px -15px 0px', threshold: 0.04 });
 
       belowItems.forEach(function (el) { io.observe(el); });
     }
