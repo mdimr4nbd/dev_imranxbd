@@ -6,29 +6,20 @@
 <title>ALL IN ONE x IMRAN</title>
 <link rel="preload" as="image" href="./assets/profile.webp" fetchpriority="high">
 <link rel="preload" as="font" href="./assets/rubik-wet-paint.woff2" type="font/woff2" crossorigin="anonymous">
-
-  
 <style>
 @font-face{font-family:"Rubik Wet Paint";font-style:normal;font-weight:400;font-display:block;src:url("./assets/rubik-wet-paint.woff2") format("woff2"),url("./fonts/rubik-wet-paint.woff2") format("woff2");}
 html{background:#06100D;}
 </style>
-
-  
 <link rel="preload" as="font" href="./fonts/Outfit-VariableFont_wght.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" as="font" href="./fonts/HindSiliguri-Regular.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" as="font" href="./fonts/JetBrainsMono-VariableFont_wght.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="stylesheet" href="./style.css?v=3">
+<link rel="stylesheet" href="./style.css?v=4">
 <meta name="claude:viewport-fit-sides" content="cover">
-  
 <script>(function(){var r=document.documentElement,bg={cosmic:'#070B16',noir:'#080D12',aurora:'#0A0814',black:'#000000',emerald:'#06100D',crimson:'#0E0709',ocean:'#050E16',blackgold:'#000000',blackred:'#050000',neon:'#000000',blackviolet:'#040008',blackblue:'#000308'};try{var t=localStorage.getItem('pf-design2')||'emerald';if(t==='cosmic')r.removeAttribute('data-design');else r.setAttribute('data-design',t);if(bg[t])r.style.backgroundColor=bg[t];localStorage.removeItem('pf-theme');localStorage.removeItem('pf-mode');}catch(e){}r.removeAttribute('data-theme');r.removeAttribute('data-mode');})();</script>
 </head>
 <body>
-
 <canvas id="fx" aria-hidden="true"></canvas>
 <div class="glow" aria-hidden="true"></div>
 <div class="c-ring" id="cRing" aria-hidden="true"></div>
 <div class="c-dot" id="cDot" aria-hidden="true"></div>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="i-messenger" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.2 2 11.4c0 2.9 1.4 5.5 3.6 7.2V22l3.3-1.8c.9.2 1.9.4 3.1.4 5.52 0 10-4.2 10-9.4S17.52 2 12 2Zm1.05 12.6-2.55-2.7-4.9 2.7 5.4-5.75 2.6 2.7 4.8-2.7-5.35 5.75Z"/></symbol>
@@ -54,7 +45,6 @@ html{background:#06100D;}
     <symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 1.5l2.4 1.6 2.9-.1 1.2 2.6 2.6 1.2-.1 2.9L22.5 12l-1.6 2.4.1 2.9-2.6 1.2-1.2 2.6-2.9-.1L12 22.5l-2.4-1.6-2.9.1-1.2-2.6-2.6-1.2.1-2.9L1.5 12l1.6-2.4-.1-2.9 2.6-1.2 1.2-2.6 2.9.1L12 1.5Z" fill="currentColor" stroke="none"/><path d="m7.8 12.2 3 3 5.6-6" fill="none" stroke="var(--on-accent, #fff)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
-
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Home">
@@ -66,7 +56,6 @@ html{background:#06100D;}
     </div>
   </div>
 </header>
-
 <main class="page wrap" id="top">
   <div class="col-left">
     <section class="hero" aria-label="Profile">
@@ -74,18 +63,15 @@ html{background:#06100D;}
       <h1 class="hname"><span class="grad" data-name>ALL IN ONE x IMRAN</span><svg class="badge" aria-label="Verified" role="img"><use href="#i-verified"/></svg></h1>
       <p class="greet"><span id="typed">Assalamualaikum - আসসালামু আলাইকুম</span><i class="caret" aria-hidden="true"></i></p>
     </section>
-
     <div class="top-duos" aria-label="Featured sections">
       <button class="tab" type="button" data-k="webdev" style="--c:var(--accent)" aria-selected="false"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="lbl">Free Fire Top-Up</span></button>
       <button class="tab" type="button" data-k="branding" style="--c:var(--accent-2)" aria-selected="false"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="lbl">Creative Studio</span></button>
     </div>
-
     <div class="tabs" role="tablist" aria-label="Contact channels">
       <button class="tab" type="button" data-k="messenger" style="--c:#0084FF" aria-selected="false" role="tab"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-messenger"/></svg></span><span class="lbl">Messenger</span></button>
       <button class="tab" type="button" data-k="whatsapp" style="--c:#25D366" aria-selected="true" role="tab"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg></span><span class="lbl">WhatsApp</span></button>
       <button class="tab" type="button" data-k="telegram" style="--c:#26A5E4" aria-selected="false" role="tab"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-telegram"/></svg></span><span class="lbl">Telegram</span></button>
     </div>
-
     <section class="ccard" id="ccard" role="tabpanel" aria-live="polite">
       <div class="chead">
         <span class="ring"><svg class="ico" id="cIcoWrap" aria-hidden="true"><use id="cIcon" href="#i-whatsapp"/></svg></span>
@@ -98,7 +84,6 @@ html{background:#06100D;}
       </div>
     </section>
   </div>
-
   <div class="col-right">
     <h2 class="sec">Official channels &amp; links</h2>
     <div class="list" id="socials">
@@ -109,8 +94,6 @@ html{background:#06100D;}
       <a class="lrow" href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" style="--c:#E4405F"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-instagram"/></svg></span><span class="t"><b>Follow Me Instagram</b><small>Photos &amp; Stories</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
     </div>
   </div>
-
-  <!-- Slim Full-Width Liquid Glass Music Player -->
   <section class="em-card" aria-label="Music Player">
     <div class="em-top">
       <div class="em-meta">
@@ -118,13 +101,11 @@ html{background:#06100D;}
         <span id="em-a">ALL IN ONE x IMRAN</span>
       </div>
     </div>
-
     <div class="em-prog-row">
       <span id="em-c">00:00</span>
       <input type="range" id="em-bar" value="0" min="0" max="100" step="0.1" aria-label="Seek">
       <span id="em-r">-00:00</span>
     </div>
-
     <div class="em-ctrl">
       <button id="em-shf" class="em-btn glass mini-btn" type="button" aria-label="Shuffle">
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
@@ -144,14 +125,12 @@ html{background:#06100D;}
         <svg id="em-ico-mute" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
       </button>
     </div>
-    <audio id="em-aud" preload="metadata"></audio>
+    <audio id="em-aud" preload="none"></audio>
   </section>
-
   <section class="code" aria-label="About me">
     <div class="bar"><i class="d" style="background:#E5534B"></i><i class="d" style="background:#E8A93B"></i><i class="d" style="background:#3DBE7A"></i><span class="fn">index.html</span><i class="live" style="margin-left:auto" aria-hidden="true"></i></div>
     <pre><code id="codeBox"><span class="l"><span class="n">1</span><span class="w">const</span> dev = {</span><span class="l"><span class="n">2</span>  <span class="k">brand</span>: <span class="s">"<span data-name>ALL IN ONE x IMRAN</span>"</span>,</span><span class="l"><span class="n">3</span>  <span class="k">greeting</span>: <span class="s">"Assalamualaikum"</span>,</span><span class="l"><span class="n">4</span>  <span class="k">builds</span>: [<span class="s">"Web"</span>, <span class="s">"Design"</span>, <span class="s">"Brand"</span>],</span><span class="l"><span class="n">5</span>  <span class="k">quality</span>: <span class="s">"Premium"</span>,</span><span class="l"><span class="n">6</span>  <span class="k">available</span>: <span class="b">true</span></span><span class="l"><span class="n">7</span>};</span><span class="l"><span class="n">8</span>dev.<span class="k">launch</span>();</span></code></pre>
   </section>
-
   <section class="gear-sec" aria-label="My Tech and Gear">
     <h2 class="gear-head"><svg class="ico stroke" aria-hidden="true"><use href="#i-cpu"/></svg><span>My Tech &amp; Gear</span></h2>
     <div class="gear-grid">
@@ -165,7 +144,6 @@ html{background:#06100D;}
           <small>Daily Driver • Pro Camera &amp; iOS</small>
         </div>
       </article>
-
       <article class="gcard" style="--c:var(--accent-2)">
         <div class="gtop">
           <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-phone"/></svg></span>
@@ -176,7 +154,6 @@ html{background:#06100D;}
           <small>Gaming &amp; Android Dev Testing</small>
         </div>
       </article>
-
       <article class="gcard" style="--c:#22D3EE">
         <div class="gtop">
           <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-watch"/></svg></span>
@@ -187,7 +164,6 @@ html{background:#06100D;}
           <small>AMOLED Fitness &amp; Smart Alerts</small>
         </div>
       </article>
-
       <article class="gcard" style="--c:#A855F7">
         <div class="gtop">
           <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-earbuds"/></svg></span>
@@ -201,12 +177,9 @@ html{background:#06100D;}
     </div>
   </section>
 </main>
-
 <footer>
   <div class="wrap"><p class="grad">© COPYRIGHT BY <span data-short>ALL IN ONE x IMRAN</span> - <span id="year">2026</span></p></div>
 </footer>
-
-<!-- Design popup -->
 <div class="overlay" id="designOv" aria-hidden="true">
   <div class="panel compact" role="dialog" aria-modal="true" aria-labelledby="dsTitle">
     <div class="p-head">
@@ -230,8 +203,6 @@ html{background:#06100D;}
     </div>
   </div>
 </div>
-
-<!-- Free Fire Top-Up Page Modal -->
 <div class="overlay" id="topupOv" aria-hidden="true">
   <div class="panel topup-panel" role="dialog" aria-modal="true" aria-labelledby="tuTitle">
     <div class="p-head">
@@ -239,7 +210,6 @@ html{background:#06100D;}
       <div class="grow"><h2 id="tuTitle">Free Fire Diamond Top-Up</h2><p>Enter Player UID and select a package</p></div>
       <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="ico stroke" aria-hidden="true"><use href="#i-close"/></svg></button>
     </div>
-
     <div class="uid-box">
       <label class="uid-label" for="ffUidInput">
         <span>Player UID (BD Server)</span>
@@ -247,7 +217,6 @@ html{background:#06100D;}
       </label>
       <input class="uid-input" id="ffUidInput" type="text" inputmode="numeric" enterkeyhint="done" pattern="[0-9]*" maxlength="15" placeholder="Enter Player UID (e.g., 1234567890)">
     </div>
-
     <div class="uid-label"><span>Diamond Package List</span><span id="selectedPkgLabel" style="color:var(--accent-2)">115 Diamond • ৳85</span></div>
     <div class="dm-grid" id="dmGrid" role="radiogroup" aria-label="Diamond packages">
       <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="25 Diamond" data-price="৳25"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">25 Diamond</span><span class="dm-price">৳25</span></span></button>
@@ -259,16 +228,13 @@ html{background:#06100D;}
       <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="Weekly Membership" data-price="৳165" style="--c:var(--accent-2)"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="dm-info"><span class="dm-top">Weekly Pass</span><span class="dm-price">৳165</span></span></button>
       <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="Monthly Membership" data-price="৳810" style="--c:var(--accent-2)"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="dm-info"><span class="dm-top">Monthly Pass</span><span class="dm-price">৳810</span></span></button>
     </div>
-
     <button type="button" class="topup-submit" id="confirmTopupBtn">
       <span>Confirm Order</span>
       <svg class="ico stroke" aria-hidden="true"><use href="#i-ext"/></svg>
     </button>
   </div>
 </div>
-
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script src="./script.js?v=3"></script>
+<script src="./script.js?v=4" defer></script>
 </body>
 </html>
