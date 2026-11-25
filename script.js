@@ -105,7 +105,7 @@
     cv.height = H;
   }
   function pickSpacedX(excludeP) {
-    var pad = Math.max(36, W * 0.13);           // দুই পাশে ফাঁকা জায়গা (করনার দিয়ে নামবে না)
+    var pad = Math.max(36, W * 0.13);
     var usableW = Math.max(60, W - pad * 2);
     var minGap = usableW / (W < 600 ? 6 : 9);
     var bestX = pad + Math.random() * usableW;
@@ -124,14 +124,14 @@
     return bestX;
   }
   function spawn(p, first, slotIdx, totalSlots) {
-    p.r = 0.85 + Math.random() * 0.45;          // ছোট মাথা
-    p.len = 18 + Math.random() * 14;            // হালকা লম্বা লেজ
+    p.r = 0.85 + Math.random() * 0.45;
+    p.len = 18 + Math.random() * 14;
     p.v = 0.45 + Math.random() * 0.25;
     if (first && totalSlots > 0) {
       var band = H / totalSlots;
       p.y = slotIdx * band + Math.random() * (band * 0.65);
     } else {
-      p.y = -45 - Math.random() * 90;           // উপরে রিস্পন হওয়ার সময়ও গ্যাপ থাকবে
+      p.y = -45 - Math.random() * 90;
     }
     p.x = pickSpacedX(p);
     p.life = first ? Math.floor(Math.random() * 280) : 0;
@@ -167,7 +167,6 @@
 
       cx.globalAlpha = alpha;
 
-      /* পেছনে চিকন হয়ে শেষ হওয়া লেজ */
       cx.fillStyle = grad;
       cx.beginPath();
       cx.moveTo(p.x, tailY);
@@ -176,7 +175,6 @@
       cx.closePath();
       cx.fill();
 
-      /* ছোট গ্লোয়িং মাথা */
       cx.fillStyle = col;
       cx.beginPath();
       cx.arc(p.x, p.y, p.r * 1.9, 0, 6.2832);
@@ -409,7 +407,7 @@
     }
   })();
 
-  /* Slim Full-Width Liquid Glass Music Player */
+  /* Slim Full-Width Liquid Glass Music Player (Single-Click Instant Play Fix) */
   (function () {
     var songs = [
       { t: 'First Song Name', a: 'ALL IN ONE x IMRAN', s: './assets/song1.mp3' },
@@ -422,38 +420,66 @@
     var icoVol = $('#em-ico-vol'), icoMute = $('#em-ico-mute');
     if (!aud || !bar || !ply) return;
 
+    aud.preload = 'auto';
+
+    function setBtnIcon(isPlaying) {
+      if (icoPlay) icoPlay.style.display = isPlaying ? 'none' : 'block';
+      if (icoPause) icoPause.style.display = isPlaying ? 'block' : 'none';
+    }
+
     function fmt(s) {
       if (isNaN(s)) return '00:00';
       var m = Math.floor(s / 60), sec = Math.floor(s % 60);
       return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
     }
+
     function load(i) {
       $('#em-t').textContent = songs[i].t;
       $('#em-a').textContent = songs[i].a;
       aud.src = songs[i].s;
+      aud.load();
       bar.value = 0;
       bar.style.background = 'linear-gradient(to right, var(--accent) 0%, var(--surface-hover) 0%)';
+      $('#em-c').textContent = '00:00';
+      $('#em-r').textContent = '-00:00';
     }
+
+    function playSong() {
+      var p = aud.play();
+      if (p !== undefined) {
+        p.then(function () {
+          setBtnIcon(true);
+        }).catch(function (err) {
+          setBtnIcon(false);
+          console.error('Playback error:', err);
+        });
+      } else {
+        setBtnIcon(true);
+      }
+    }
+
     function playToggle() {
       if (aud.paused) {
-        aud.play();
-        if (icoPlay) icoPlay.style.display = 'none';
-        if (icoPause) icoPause.style.display = 'block';
+        playSong();
       } else {
         aud.pause();
-        if (icoPlay) icoPlay.style.display = 'block';
-        if (icoPause) icoPause.style.display = 'none';
+        setBtnIcon(false);
       }
     }
 
     ply.addEventListener('click', playToggle);
+    aud.addEventListener('play', function () { setBtnIcon(true); });
+    aud.addEventListener('pause', function () { setBtnIcon(false); });
+
     $('#em-nxt').addEventListener('click', function () {
       idx = shf ? Math.floor(Math.random() * songs.length) : (idx + 1) % songs.length;
-      load(idx); playToggle();
+      load(idx);
+      playSong();
     });
     $('#em-prv').addEventListener('click', function () {
       idx = (idx - 1 + songs.length) % songs.length;
-      load(idx); playToggle();
+      load(idx);
+      playSong();
     });
     $('#em-shf').addEventListener('click', function (e) {
       shf = !shf; e.currentTarget.classList.toggle('act', shf);
@@ -608,7 +634,6 @@
 
       belowItems.forEach(function (el) { io.observe(el); });
 
-      /* Fail-safe scroll & timer check so fast scrolling never leaves any card hidden */
       function checkVisible() {
         var h = window.innerHeight || document.documentElement.clientHeight;
         for (var i = 0; i < belowItems.length; i++) {
