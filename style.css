@@ -611,3 +611,44 @@ footer { --d: 1170ms; }
     font-size: clamp(1.5rem, 2.4vw, 2.05rem);
   }
 }
+
+
+/* Smooth Scroll-Reveal for below-the-fold sections */
+.sr-wait {
+  opacity: 0 !important;
+  -webkit-animation: none !important;
+  animation: none !important;
+  -webkit-transform: translate3d(0, 22px, 0) scale(0.985);
+  transform: translate3d(0, 22px, 0) scale(0.985);
+  will-change: transform, opacity;
+}
+.sr-in {
+  -webkit-animation: smoothScrollIn 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  animation: smoothScrollIn 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  -webkit-animation-delay: var(--sd, 0ms) !important;
+  animation-delay: var(--sd, 0ms) !important;
+}
+@-webkit-keyframes smoothScrollIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 22px, 0) scale(0.985);
+    transform: translate3d(0, 22px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+@keyframes smoothScrollIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 22px, 0) scale(0.985);
+    transform: translate3d(0, 22px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
