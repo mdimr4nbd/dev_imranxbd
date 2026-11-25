@@ -10,7 +10,7 @@
   
 <style>
 @font-face{font-family:"Rubik Wet Paint";font-style:normal;font-weight:400;font-display:block;src:url("./assets/rubik-wet-paint.woff2") format("woff2"),url("./fonts/rubik-wet-paint.woff2") format("woff2");}
-.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer { opacity: 0; }
+.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer { opacity: 0; }
 </style>
 
   
@@ -109,6 +109,29 @@
       <a class="lrow" href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" style="--c:#E4405F"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-instagram"/></svg></span><span class="t"><b>Follow Me Instagram</b><small>Photos &amp; Stories</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
     </div>
   </div>
+
+  <!-- Compact Liquid Glass Music Player -->
+  <section class="em-card" aria-label="Music Player">
+    <div class="em-top">
+      <div class="em-meta">
+        <h4 id="em-t">My Favorite Track</h4>
+        <span id="em-a">ALL IN ONE x IMRAN</span>
+      </div>
+      <button id="em-like" class="em-btn act" type="button" aria-label="Like">♥</button>
+    </div>
+
+    <input type="range" id="em-bar" value="0" min="0" max="100" step="0.1" aria-label="Seek">
+    <div class="em-time"><span id="em-c">00:00</span><span id="em-r">-00:00</span></div>
+
+    <div class="em-ctrl">
+      <button id="em-shf" class="em-btn glass" type="button" aria-label="Shuffle">⇄</button>
+      <button id="em-prv" class="em-btn glass sm" type="button" aria-label="Previous">⏮</button>
+      <button id="em-ply" class="em-btn glass lg" type="button" aria-label="Play">▶</button>
+      <button id="em-nxt" class="em-btn glass sm" type="button" aria-label="Next">⏭</button>
+      <button id="em-snd" class="em-btn glass act" type="button" aria-label="Mute">🔊</button>
+    </div>
+    <audio id="em-aud" preload="metadata"></audio>
+  </section>
 
   <section class="code" aria-label="About me">
     <div class="bar"><i class="d" style="background:#E5534B"></i><i class="d" style="background:#E8A93B"></i><i class="d" style="background:#3DBE7A"></i><span class="fn">index.html</span><i class="live" style="margin-left:auto" aria-hidden="true"></i></div>
