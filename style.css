@@ -522,8 +522,8 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 @-webkit-keyframes smoothFlyIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, -10px, 0);
-    transform: translate3d(0, -10px, 0);
+    -webkit-transform: translate3d(0, -18px, 0);
+    transform: translate3d(0, -18px, 0);
   }
   100% {
     opacity: 1;
@@ -534,8 +534,8 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 @keyframes smoothFlyIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, -10px, 0);
-    transform: translate3d(0, -10px, 0);
+    -webkit-transform: translate3d(0, -18px, 0);
+    transform: translate3d(0, -18px, 0);
   }
   100% {
     opacity: 1;
@@ -545,30 +545,32 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 }
 
 .topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer {
-  -webkit-animation: smoothFlyIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  animation: smoothFlyIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  -webkit-animation: smoothFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards !important;
+  animation: smoothFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards !important;
+  -webkit-animation-delay: var(--d, 0ms) !important;
+  animation-delay: var(--d, 0ms) !important;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.topbar { animation-delay: 0ms; }
-.hero { animation-delay: 25ms; }
-.top-duos { animation-delay: 50ms; }
-.tabs { animation-delay: 75ms; }
-.ccard { animation-delay: 100ms; }
-.sec { animation-delay: 60ms; }
-.lrow:nth-child(1) { animation-delay: 80ms; }
-.lrow:nth-child(2) { animation-delay: 105ms; }
-.lrow:nth-child(3) { animation-delay: 130ms; }
-.lrow:nth-child(4) { animation-delay: 155ms; }
-.lrow:nth-child(5) { animation-delay: 180ms; }
-.em-card { animation-delay: 140ms; }
-.code { animation-delay: 170ms; }
-.gear-head { animation-delay: 190ms; }
-.gcard:nth-child(1) { animation-delay: 205ms; }
-.gcard:nth-child(2) { animation-delay: 220ms; }
-.gcard:nth-child(3) { animation-delay: 235ms; }
-.gcard:nth-child(4) { animation-delay: 250ms; }
-footer { animation-delay: 260ms; }
+.topbar { --d: 0ms; }
+.hero { --d: 65ms; }
+.top-duos { --d: 130ms; }
+.tabs { --d: 195ms; }
+.ccard { --d: 260ms; }
+.sec { --d: 325ms; }
+.lrow:nth-child(1) { --d: 390ms; }
+.lrow:nth-child(2) { --d: 455ms; }
+.lrow:nth-child(3) { --d: 520ms; }
+.lrow:nth-child(4) { --d: 585ms; }
+.lrow:nth-child(5) { --d: 650ms; }
+.em-card { --d: 715ms; }
+.code { --d: 780ms; }
+.gear-head { --d: 845ms; }
+.gcard:nth-child(1) { --d: 910ms; }
+.gcard:nth-child(2) { --d: 975ms; }
+.gcard:nth-child(3) { --d: 1040ms; }
+.gcard:nth-child(4) { --d: 1105ms; }
+footer { --d: 1170ms; }
 
 
 
