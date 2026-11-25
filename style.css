@@ -97,7 +97,7 @@ img{max-width:100%}
 :root[data-design="blackblue"] { --bg: #000308; --bg-2: #050A14; --panel: #0A1220; --glass: rgba(0, 3, 8, .8); --accent: #3B82F6; --accent-2: #06B6D4; --on-accent: #00091A; --glow-1: rgba(59, 130, 246, .2); --glow-2: rgba(6, 182, 212, .12); }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; overflow-x: clip; scrollbar-width: none; -ms-overflow-style: none; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; overflow-x: clip; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
 html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 html.lock, html.lock body { overflow: hidden; }
 html.lock .topbar, html.lock .page, html.lock footer { pointer-events: none !important; user-select: none; }
@@ -613,42 +613,45 @@ footer { --d: 1170ms; }
 }
 
 
-/* Smooth Scroll-Reveal for below-the-fold sections */
+/* 120FPS Pure GPU Compositor Scroll-Reveal */
 .sr-wait {
   opacity: 0 !important;
   -webkit-animation: none !important;
   animation: none !important;
-  -webkit-transform: translate3d(0, 22px, 0) scale(0.985);
-  transform: translate3d(0, 22px, 0) scale(0.985);
+  -webkit-transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 18px, 0);
   will-change: transform, opacity;
 }
 .sr-in {
-  -webkit-animation: smoothScrollIn 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-  animation: smoothScrollIn 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  -webkit-animation: smoothScrollIn 0.46s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  animation: smoothScrollIn 0.46s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
   -webkit-animation-delay: var(--sd, 0ms) !important;
   animation-delay: var(--sd, 0ms) !important;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 @-webkit-keyframes smoothScrollIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 22px, 0) scale(0.985);
-    transform: translate3d(0, 22px, 0) scale(0.985);
+    -webkit-transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 18px, 0);
   }
   100% {
     opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0) scale(1);
-    transform: translate3d(0, 0, 0) scale(1);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 @keyframes smoothScrollIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 22px, 0) scale(0.985);
-    transform: translate3d(0, 22px, 0) scale(0.985);
+    -webkit-transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 18px, 0);
   }
   100% {
     opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0) scale(1);
-    transform: translate3d(0, 0, 0) scale(1);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
