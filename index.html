@@ -1,274 +1,682 @@
-<!doctype html>
-<html data-design="emerald">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ALL IN ONE x IMRAN</title>
-<link rel="preload" as="image" href="./assets/profile.webp" fetchpriority="high">
-<link rel="preload" as="font" href="./assets/rubik-wet-paint.woff2" type="font/woff2" crossorigin="anonymous">
+/* Self-hosted fonts from ./fonts/ folder */
+@font-face {
+  font-family: "Outfit";
+  src: url("./fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("./fonts/HindSiliguri-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("./fonts/HindSiliguri-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("./fonts/HindSiliguri-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("./fonts/HindSiliguri-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik Wet Paint";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("./assets/rubik-wet-paint.woff2") format("woff2"),
+       url("./fonts/rubik-wet-paint.woff2") format("woff2"),
+       url("./fonts/rubik-wet-paint.ttf") format("truetype");
+}
 
-  
-<style>
-@font-face{font-family:"Rubik Wet Paint";font-style:normal;font-weight:400;font-display:block;src:url("./assets/rubik-wet-paint.woff2") format("woff2"),url("./fonts/rubik-wet-paint.woff2") format("woff2");}
-html{background:#06100D;}
-</style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;padding:0;font:16px "Outfit","Hind Siliguri",system-ui,-apple-system,sans-serif;background:#06100D;color:#EEF2FA}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
 
-  
-<link rel="preload" as="font" href="./fonts/Outfit-VariableFont_wght.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" as="font" href="./fonts/HindSiliguri-Regular.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" as="font" href="./fonts/JetBrainsMono-VariableFont_wght.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="stylesheet" href="./style.css?v=3">
-<meta name="claude:viewport-fit-sides" content="cover">
-  
-<script>if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);(function(){var r=document.documentElement,bg={cosmic:'#070B16',noir:'#080D12',aurora:'#0A0814',black:'#000000',emerald:'#06100D',crimson:'#0E0709',ocean:'#050E16',blackgold:'#000000',blackred:'#050000',neon:'#000000',blackviolet:'#040008',blackblue:'#000308'};try{var t=localStorage.getItem('pf-design2')||'emerald';if(t==='cosmic')r.removeAttribute('data-design');else r.setAttribute('data-design',t);if(bg[t])r.style.backgroundColor=bg[t];localStorage.removeItem('pf-theme');localStorage.removeItem('pf-mode');}catch(e){}r.removeAttribute('data-theme');r.removeAttribute('data-mode');})();</script>
-</head>
-<body>
+:root {
+  --font-body: "Outfit", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-brand: "Rubik Wet Paint", "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --bg: #070B16;
+  --bg-2: #0B1121;
+  --panel: #0F1629;
+  --glass: rgba(9, 14, 28, .74);
+  --surface: rgba(255, 255, 255, .04);
+  --surface-hover: rgba(255, 255, 255, .075);
+  --line: rgba(255, 255, 255, .1);
+  --fg: #EEF2FA;
+  --muted: #97A3BC;
+  --accent: #5B8DFF;
+  --accent-2: #FF8F4F;
+  --on-accent: #FFFFFF;
+  --glow-1: rgba(91, 141, 255, .22);
+  --glow-2: rgba(255, 143, 79, .16);
+  --shadow: 0 24px 60px rgba(0, 0, 0, .5);
+  --scrim: rgba(3, 6, 12, .7);
+  --danger: #FF8A80;
+  --ok: #34D399;
+  --photo-bg: radial-gradient(circle at 25% 25%, color-mix(in srgb, var(--accent) 32%, transparent), transparent 62%), radial-gradient(circle at 80% 75%, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 65%), linear-gradient(155deg, color-mix(in srgb, var(--accent) 18%, var(--panel)) 0%, color-mix(in srgb, var(--accent-2) 14%, var(--bg-2)) 100%);
+  --code-bg: #080C18; --code-bar: #0D1326; --code-fg: #C9D3EA; --code-dim: #566385;
+  --code-key: #7FA8FF; --code-str: #7BE0A4; --code-kw: #C49BFF; --code-bool: #FFB074;
+  color-scheme: dark;
+}
+:root[data-design="noir"] { --bg: #080D12; --bg-2: #0D141B; --panel: #101921; --glass: rgba(13, 20, 27, .74); --accent: #DDB76F; --accent-2: #5ED1C3; --on-accent: #1B1406; --glow-1: rgba(94, 209, 195, .17); --glow-2: rgba(221, 183, 111, .15); }
+:root[data-design="aurora"] { --bg: #0A0814; --bg-2: #100D1E; --panel: #15112A; --glass: rgba(16, 13, 30, .74); --accent: #B79CFF; --accent-2: #FF7EB6; --on-accent: #12082B; --glow-1: rgba(183, 156, 255, .2); --glow-2: rgba(255, 126, 182, .16); }
+:root[data-design="black"] { --bg: #000000; --bg-2: #070707; --panel: #0D0D0D; --glass: rgba(0, 0, 0, .78); --accent: #FFFFFF; --accent-2: #9AA0A6; --on-accent: #000000; --glow-1: rgba(255, 255, 255, .09); --glow-2: rgba(154, 160, 166, .07); }
+:root[data-design="emerald"] { --bg: #06100D; --bg-2: #0A1814; --panel: #0E1F1A; --glass: rgba(8, 20, 16, .76); --accent: #34D399; --accent-2: #A3E635; --on-accent: #04150E; --glow-1: rgba(52, 211, 153, .2); --glow-2: rgba(163, 230, 53, .13); }
+:root[data-design="crimson"] { --bg: #0E0709; --bg-2: #160B0E; --panel: #1E1014; --glass: rgba(22, 11, 14, .76); --accent: #FF5A6E; --accent-2: #FFB36B; --on-accent: #2A0A10; --glow-1: rgba(255, 90, 110, .2); --glow-2: rgba(255, 179, 107, .13); }
+:root[data-design="ocean"] { --bg: #050E16; --bg-2: #0A1722; --panel: #0E1F2D; --glass: rgba(10, 23, 34, .76); --accent: #22D3EE; --accent-2: #818CF8; --on-accent: #04141C; --glow-1: rgba(34, 211, 238, .18); --glow-2: rgba(129, 140, 248, .16); }
+:root[data-design="blackgold"] { --bg: #000000; --bg-2: #080705; --panel: #0F0D08; --glass: rgba(0, 0, 0, .8); --accent: #F2C94C; --accent-2: #C98F2B; --on-accent: #1A1200; --glow-1: rgba(242, 201, 76, .14); --glow-2: rgba(201, 143, 43, .1); }
+:root[data-design="blackred"] { --bg: #050000; --bg-2: #0C0505; --panel: #140808; --glass: rgba(5, 0, 0, .8); --accent: #FF2D3D; --accent-2: #FF7A59; --on-accent: #1A0003; --glow-1: rgba(255, 45, 61, .18); --glow-2: rgba(255, 122, 89, .1); }
+:root[data-design="neon"] { --bg: #000000; --bg-2: #030A06; --panel: #08140D; --glass: rgba(0, 0, 0, .8); --accent: #39FF88; --accent-2: #00E5FF; --on-accent: #00140A; --glow-1: rgba(57, 255, 136, .14); --glow-2: rgba(0, 229, 255, .1); }
+:root[data-design="blackviolet"] { --bg: #040008; --bg-2: #0A0510; --panel: #120A1C; --glass: rgba(4, 0, 8, .8); --accent: #A855F7; --accent-2: #EC4899; --on-accent: #12001F; --glow-1: rgba(168, 85, 247, .2); --glow-2: rgba(236, 72, 153, .12); }
+:root[data-design="blackblue"] { --bg: #000308; --bg-2: #050A14; --panel: #0A1220; --glass: rgba(0, 3, 8, .8); --accent: #3B82F6; --accent-2: #06B6D4; --on-accent: #00091A; --glow-1: rgba(59, 130, 246, .2); --glow-2: rgba(6, 182, 212, .12); }
 
-<canvas id="fx" aria-hidden="true"></canvas>
-<div class="glow" aria-hidden="true"></div>
-<div class="c-ring" id="cRing" aria-hidden="true"></div>
-<div class="c-dot" id="cDot" aria-hidden="true"></div>
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; overflow-x: clip; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+html.lock, html.lock body { overflow: hidden; }
+html.lock .topbar, html.lock .page, html.lock footer { pointer-events: none !important; user-select: none; }
+body {
+  background-color: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; overflow-x: clip; max-width: 100%;
+  touch-action: pan-y; scrollbar-width: none; -ms-overflow-style: none;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg-2); }
+.glow { position: fixed; inset: 0; z-index: 0; pointer-events: none; contain: strict; transform: translateZ(0);
+  background: radial-gradient(70% 42% at 0% 18%, var(--glow-1), transparent 72%), radial-gradient(60% 44% at 100% 58%, var(--glow-2), transparent 72%); }
+#fx { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; contain: strict; transform: translateZ(0); }
+button { font: inherit; color: inherit; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+a { color: inherit; touch-action: manipulation; }
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+.ico { width: 1.25em; height: 1.25em; flex: none; fill: currentColor; }
+.ico.stroke { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.wrap { width: 100%; max-width: 600px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.col-left, .col-right { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="i-messenger" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.2 2 11.4c0 2.9 1.4 5.5 3.6 7.2V22l3.3-1.8c.9.2 1.9.4 3.1.4 5.52 0 10-4.2 10-9.4S17.52 2 12 2Zm1.05 12.6-2.55-2.7-4.9 2.7 5.4-5.75 2.6 2.7 4.8-2.7-5.35 5.75Z"/></symbol>
-    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm-3.5 5.6c.3-.55.85-.45 1.05 0l.85 1.8c.1.3 0 .6-.2.85l-.65.7c.75 1.45 1.9 2.6 3.35 3.3l.7-.65c.2-.2.55-.3.85-.2l1.8.85c.45.2.55.75 0 1.1-.75.6-1.8 1-2.75.8-3.1-.75-5.55-3.2-6.25-6.3-.1-.95.35-1.75 1.25-2.25Z"/></symbol>
-    <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M21.9 4.3 2.9 11.6c-.9.35-.9 1.2 0 1.5l4.8 1.5 1.85 5.6c.2.6.9.8 1.4.4l2.7-2.2 4.7 3.5c.6.4 1.3.1 1.5-.6l3-15.4c.2-.85-.5-1.45-1.1-1.15ZM9.3 14.1l9-6.6-7.2 8.2-.35 3-1.45-4.6Z"/></symbol>
-    <symbol id="i-twitter" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 0 1-2.825.775 4.958 4.958 0 0 0 2.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 0 0-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 0 0-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 0 1-2.228-.616v.06a4.923 4.923 0 0 0 3.946 4.827 4.996 4.996 0 0 1-2.212.085 4.936 4.936 0 0 0 4.604 3.417 9.867 9.867 0 0 1-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 0 0 7.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0 0 24 4.59Z"/></symbol>
-    <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .5Z"/></symbol>
-    <symbol id="i-youtube" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12s0-3.2-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></symbol>
-    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M13.5 22v-8.2h2.8l.4-3.3h-3.2V8.4c0-.9.3-1.6 1.6-1.6H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.6H7.8v3.3h2.8V22h2.9Z"/></symbol>
-    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.6 6.4h.01"/></symbol>
-    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
-    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
-    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
-    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/></symbol>
-    <symbol id="i-diamond" viewBox="0 0 24 24"><path d="M6.5 3.5h11l4 5.5-9.5 11.5L2.5 9l4-5.5Z"/><path d="M2.5 9h19M12 20.5 8.2 9 12 3.5 15.8 9 12 20.5Z"/></symbol>
-    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 4.8L18.5 9.5l-4.7 1.7L12 16l-1.8-4.8L5.5 9.5l4.7-1.7L12 3ZM18.5 15l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z"/></symbol>
-    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
-    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 19h2"/></symbol>
-    <symbol id="i-watch" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 2h6v4H9zM9 18h6v4H9zM12 9v3l2 1"/></symbol>
-    <symbol id="i-earbuds" viewBox="0 0 24 24"><path d="M7 6a3 3 0 0 1 3 3v7a1.5 1.5 0 0 1-3 0v-4a3 3 0 0 1 0-6ZM17 6a3 3 0 0 0-3 3v7a1.5 1.5 0 0 0 3 0v-4a3 3 0 0 0 0-6Z"/></symbol>
-    <symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 1.5l2.4 1.6 2.9-.1 1.2 2.6 2.6 1.2-.1 2.9L22.5 12l-1.6 2.4.1 2.9-2.6 1.2-1.2 2.6-2.9-.1L12 22.5l-2.4-1.6-2.9.1-1.2-2.6-2.6-1.2.1-2.9L1.5 12l1.6-2.4-.1-2.9 2.6-1.2 1.2-2.6 2.9.1L12 1.5Z" fill="currentColor" stroke="none"/><path d="m7.8 12.2 3 3 5.6-6" fill="none" stroke="var(--on-accent, #fff)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  </defs>
-</svg>
+.grad {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--accent);
+  display: inline-block;
+}
 
-<header class="topbar">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="Home">
-      <span class="mini"><span data-avatar class="profile-container"><img src="./assets/profile.webp" alt="" aria-hidden="true" class="profile-photo" width="440" height="650" fetchpriority="high" loading="eager" decoding="sync"></span></span>
-      <span class="name grad" data-name>ALL IN ONE x IMRAN</span>
-    </a>
-    <div class="actions">
-      <button class="icon-btn" id="designBtn" type="button" aria-haspopup="dialog" aria-label="Change design"><svg class="ico stroke" aria-hidden="true"><use href="#i-palette"/></svg></button>
-    </div>
-  </div>
-</header>
+.c-dot, .c-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; border-radius: 50%; opacity: 0; will-change: transform; transition: opacity .2s ease; }
+.c-dot { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.c-ring { width: 32px; height: 32px; margin: -16px 0 0 -16px; border: 1.5px solid color-mix(in srgb, var(--accent-2) 70%, transparent); transition: width .2s ease, height .2s ease, margin .2s ease, border-color .2s ease, background .2s ease, opacity .2s ease; }
+.c-ring.hover { width: 46px; height: 46px; margin: -23px 0 0 -23px; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.c-ring.down { width: 24px; height: 24px; margin: -12px 0 0 -12px; }
+@media (hover: none), (pointer: coarse) { .c-dot, .c-ring { display: none !important; } }
 
-<main class="page wrap" id="top">
-  <div class="col-left">
-    <section class="hero" aria-label="Profile">
-      <div class="avatar"><div class="face" data-avatar><div class="profile-container"><img src="./assets/profile.webp" alt="" aria-hidden="true" class="profile-photo" width="440" height="650" fetchpriority="high" loading="eager" decoding="sync"></div></div></div>
-      <h1 class="hname"><span class="grad" data-name>ALL IN ONE x IMRAN</span><svg class="badge" aria-label="Verified" role="img"><use href="#i-verified"/></svg></h1>
-      <p class="greet"><span id="typed">Assalamualaikum - আসসালামু আলাইকুম</span><i class="caret" aria-hidden="true"></i></p>
-    </section>
+.topbar { position: fixed; top: 0; left: 0; right: 0; width: 100%; padding-top: env(safe-area-inset-top, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); z-index: 20; background: var(--bg-2); background: color-mix(in srgb, var(--bg-2) 92%, transparent); transform: translateZ(0); contain: layout style; }
+.topbar::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent); opacity: .5; }
+.topbar .wrap { width: min(100% - 32px, 600px); min-height: 62px; height: auto; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: inline-flex; align-items: center; justify-content: flex-start; gap: 10px; text-decoration: none; min-width: 0; max-width: calc(100% - 76px); flex: 1 1 auto; overflow: hidden; }
+.brand .name { display: block; font-family: "Rubik Wet Paint", "Outfit", sans-serif; font-weight: 400; font-size: clamp(.78rem, 2.5vw, 1.28rem); letter-spacing: .025em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; padding-block: 2px; font-synthesis: none; opacity: 1; visibility: visible; }
+.mini { width: 36px; height: 36px; min-width: 36px; min-height: 36px; flex: 0 0 36px; border-radius: 50%; padding: 2px; background: conic-gradient(var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; cursor: pointer; overflow: hidden; }
+.mini > .profile-container { display: block; position: relative; width: 100%; height: 100%; max-width: none; border-radius: 50%; overflow: hidden; background: var(--photo-bg); }
+.mini .profile-photo { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center 22%; border-radius: 50%; }
+.face { position: relative; width: 112px; height: 112px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; border: 2px solid color-mix(in srgb, var(--accent) 65%, var(--accent-2));
+  background: var(--photo-bg); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 38%, transparent), 0 0 42px var(--glow-1); }
+.face > .profile-container { width: 100%; height: 100%; max-width: none; display: block; overflow: hidden; }
+.face .profile-photo { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center 22%; }
+.actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; flex: 0 0 auto; }
+.icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: background .12s, border-color .12s, transform .1s; flex: none; }
+.topbar .icon-btn { width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
+.topbar .icon-btn .ico { width: .95em; height: .95em; }
+.icon-btn:hover { background: var(--surface-hover); border-color: var(--accent); }
+.panel [data-close], .panel [data-close]:hover, .panel [data-close]:active, .panel [data-close]:focus, .panel [data-close]:focus-visible { background: var(--surface); border-color: var(--line); outline: none; transform: none; transition: none; }
+.icon-btn:active { transform: scale(.94); }
 
-    <div class="top-duos" aria-label="Featured sections">
-      <button class="tab" type="button" data-k="webdev" style="--c:var(--accent)" aria-selected="false"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="lbl">Free Fire Top-Up</span></button>
-      <button class="tab" type="button" data-k="branding" style="--c:var(--accent-2)" aria-selected="false"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="lbl">Creative Studio</span></button>
-    </div>
+.page { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 18px; padding-block: 82px 10px; }
 
-    <div class="tabs" role="tablist" aria-label="Contact channels">
-      <button class="tab" type="button" data-k="messenger" style="--c:#0084FF" aria-selected="false" role="tab"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-messenger"/></svg></span><span class="lbl">Messenger</span></button>
-      <button class="tab" type="button" data-k="whatsapp" style="--c:#25D366" aria-selected="true" role="tab"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-whatsapp"/></svg></span><span class="lbl">WhatsApp</span></button>
-      <button class="tab" type="button" data-k="telegram" style="--c:#26A5E4" aria-selected="false" role="tab"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-telegram"/></svg></span><span class="lbl">Telegram</span></button>
-    </div>
+.hero { position: relative; text-align: center; padding: 28px 18px 24px; border-radius: 32px; border: 1px solid var(--line); overflow: hidden; isolation: isolate; contain: layout style;
+  background: radial-gradient(60% 70% at 15% 0%, var(--glow-1), transparent 70%), radial-gradient(60% 70% at 100% 100%, var(--glow-2), transparent 70%), linear-gradient(160deg, var(--surface-hover), var(--surface));
+  box-shadow: var(--shadow); }
+.hero::before { content: ""; position: absolute; left: 26%; right: 26%; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent); opacity: .28; }
+.avatar { position: relative; width: 132px; height: 132px; margin: 0 auto 16px; display: grid; place-items: center; }
+.avatar .hspin { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; animation: spin 7s linear infinite; will-change: transform; }
+.avatar::after { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 2px dashed color-mix(in srgb, var(--accent) 55%, transparent); animation: spin 26s linear infinite reverse; will-change: transform; }
+h1.hname { margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; max-width: 100%; white-space: nowrap; font-family: "Rubik Wet Paint", "Outfit", sans-serif; font-weight: 400; letter-spacing: .06em; line-height: 1.3; padding-block: 2px; font-size: clamp(1.08rem, 5.1vw, 2.15rem); font-synthesis: none; overflow: visible; opacity: 1; visibility: visible; }
+h1.hname .grad { min-width: 0; padding-inline: 2px; }
+.badge { width: 1em; height: 1em; font-size: 1em; flex: none; transform: translateY(0.03em); color: var(--accent); filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 45%, transparent)); transition: color .2s ease, filter .2s ease; }
+.greet { margin: 8px 0 0; min-height: 1.7em; font-size: 1rem; opacity: .9; }
+.caret { display: inline-block; width: 2px; height: 1.1em; vertical-align: -.18em; margin-left: 3px; background: var(--accent-2); animation: blink 1s steps(1) infinite; }
 
-    <section class="ccard" id="ccard" role="tabpanel" aria-live="polite">
-      <div class="chead">
-        <span class="ring"><svg class="ico" id="cIcoWrap" aria-hidden="true"><use id="cIcon" href="#i-whatsapp"/></svg></span>
-        <div class="ctext"><h3 id="cTitle">WhatsApp</h3><p id="cSub">+880 • Official Business</p></div>
-        <span class="pill"><i></i><span id="cPill">Fast Reply</span></span>
-      </div>
-      <p class="cdesc" id="cDesc">Connect directly on WhatsApp for fast consultations, order updates, and dedicated client communication.</p>
-      <div class="cbtns">
-        <a class="cta" id="cCta" href="https://wa.me/8801XXXXXXXXX" target="_blank" rel="noopener noreferrer"><span id="cCtaTxt">Message on WhatsApp</span><svg class="ico stroke" aria-hidden="true"><use href="#i-ext"/></svg></a>
-      </div>
-    </section>
-  </div>
+.ring { position: relative; flex: none; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: var(--c);
+  background: color-mix(in srgb, var(--c) 14%, transparent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 28%, transparent) inset, 0 0 18px color-mix(in srgb, var(--c) 24%, transparent); }
+.ring::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--c) 42%, transparent); }
+.ring .spin { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; color: var(--c); animation: spin 3s linear infinite; will-change: transform; }
+.lrow .ring .spin { animation-duration: 2.4s; }
+.ring .spin circle { stroke-width: 5; }
+.tab .ring .spin circle { stroke-width: 8; }
+.lrow .ring .spin circle { stroke-width: 7; }
+.ring .orb { position: absolute; left: -7px; top: -7px; width: calc(100% + 14px); height: calc(100% + 14px); overflow: visible; pointer-events: none; color: var(--c); animation: spin 12s linear infinite reverse; will-change: transform; }
+.ring .ico { width: 46%; height: 46%; position: relative; z-index: 1; }
 
-  <div class="col-right">
-    <h2 class="sec">Official channels &amp; links</h2>
-    <div class="list" id="socials">
-      <a class="lrow" href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" style="--c:#1DA1F2"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-twitter"/></svg></span><span class="t"><b>Follow Me Twitter</b><small>Tweets &amp; Updates</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
-      <a class="lrow" href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" style="--c:var(--fg)"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg></span><span class="t"><b>Follow Me GitHub</b><small>Open Source &amp; Repositories</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
-      <a class="lrow" href="https://youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer" style="--c:#FF0000"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-youtube"/></svg></span><span class="t"><b>Follow Me YouTube</b><small>Tutorials &amp; Showcases</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
-      <a class="lrow" href="https://facebook.com/yourpage" target="_blank" rel="noopener noreferrer" style="--c:#1877F2"><span class="ring"><svg class="ico" aria-hidden="true"><use href="#i-facebook"/></svg></span><span class="t"><b>Follow Me Facebook</b><small>Community &amp; Highlights</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
-      <a class="lrow" href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" style="--c:#E4405F"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-instagram"/></svg></span><span class="t"><b>Follow Me Instagram</b><small>Photos &amp; Stories</small></span><span class="go"><svg class="ico stroke" aria-hidden="true"><use href="#i-chev"/></svg></span></a>
-    </div>
-  </div>
+.top-duos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-inline: 10px; }
+.tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding-inline: 10px; }
+.tab { --c: var(--accent); display: flex; align-items: center; justify-content: center; gap: 5px; min-width: 0; padding: 7px 4px; cursor: pointer; border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
+  font-weight: 600; font-size: .74rem; transition: border-color .1s, background .1s, box-shadow .1s, transform .08s; }
+.tab .ring { width: 20px; height: 20px; }
+.tab[data-k="webdev"] .ring::after { display: none; }
+.tab .lbl { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tab:hover { background: var(--surface-hover); border-color: color-mix(in srgb, var(--c) 55%, var(--line)); }
+.tab:active { transform: scale(.97); }
+.tab[aria-selected="true"] {
+  border-color: var(--c);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--c) 24%, var(--panel)), color-mix(in srgb, var(--c) 12%, var(--surface)));
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--c) 26%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 38%, transparent) inset;
+}
 
-  <!-- Slim Full-Width Liquid Glass Music Player -->
-  <section class="em-card" aria-label="Music Player">
-    <div class="em-top">
-      <div class="em-meta">
-        <h4 id="em-t">My Favorite Track</h4>
-        <span id="em-a">ALL IN ONE x IMRAN</span>
-      </div>
-    </div>
+.ccard {
+  --c: #25D366; --n: 50%;
+  position: relative; padding: 18px; border-radius: 26px; border: 1px solid color-mix(in srgb, var(--c) 45%, var(--line));
+  background: radial-gradient(75% 90% at var(--n) 0%, color-mix(in srgb, var(--c) 22%, transparent), transparent 72%), linear-gradient(160deg, var(--surface-hover), var(--surface));
+  box-shadow: var(--shadow); overflow: hidden; contain: content;
+}
+.ccard.settled { animation: none; }
+.ccard.pop { animation: cpop .36s cubic-bezier(.16, 1, .3, 1) both; }
+.chead { display: flex; align-items: center; gap: 12px; }
+.ctext { min-width: 0; flex: 1; }
+.ctext h3 { margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 1.25; }
+.ctext p { margin: 2px 0 0; font-size: .82rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; font-size: .78rem; font-weight: 600;
+  color: var(--c); background: color-mix(in srgb, var(--c) 15%, transparent); border: 1px solid color-mix(in srgb, var(--c) 38%, transparent); flex: none; }
+.pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.cdesc { margin: 12px 0 14px; font-size: .92rem; color: var(--muted); line-height: 1.55; }
+.cbtns { display: flex; gap: 10px; }
+.cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 16px; border-radius: 16px; text-decoration: none;
+  font-weight: 700; font-size: .92rem; color: #fff; background: linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 76%, #000));
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--c) 34%, transparent); transition: transform .12s, filter .12s; }
+.cta:hover { filter: brightness(1.06); }
+.cta:active { transform: scale(.98); }
 
-    <div class="em-prog-row">
-      <span id="em-c">00:00</span>
-      <input type="range" id="em-bar" value="0" min="0" max="100" step="0.1" aria-label="Seek">
-      <span id="em-r">-00:00</span>
-    </div>
+.sec { margin: 4px 4px -6px; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.list { display: flex; flex-direction: column; gap: 11px; }
+.lrow {
+  --c: var(--accent); display: flex; align-items: center; gap: 14px; padding: 12px 15px; border-radius: 22px;
+  border: 1px solid var(--line); background: linear-gradient(155deg, var(--surface-hover), var(--surface));
+  text-decoration: none; box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
+  transition: transform .14s, border-color .14s, background .14s;
+}
+.lrow:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 55%, var(--line)); background: var(--surface-hover); }
+.lrow:active { transform: scale(.985); }
+.lrow .t { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+.lrow .t b { font-size: .98rem; font-weight: 700; line-height: 1.25; }
+.lrow .t small { font-size: .82rem; color: var(--muted); }
+.lrow .go { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); flex: none; transition: color .14s, border-color .14s, transform .14s; }
+.lrow:hover .go { color: var(--c); border-color: color-mix(in srgb, var(--c) 50%, var(--line)); transform: translateX(2px); }
 
-    <div class="em-ctrl">
-      <button id="em-shf" class="em-btn glass mini-btn" type="button" aria-label="Shuffle">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-      </button>
-      <button id="em-prv" class="em-btn glass sm" type="button" aria-label="Previous">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-      </button>
-      <button id="em-ply" class="em-btn glass lg" type="button" aria-label="Play">
-        <svg id="em-ico-play" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="margin-left:2px"><path d="M8 5v14l11-7z"/></svg>
-        <svg id="em-ico-pause" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-      </button>
-      <button id="em-nxt" class="em-btn glass sm" type="button" aria-label="Next">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-      </button>
-      <button id="em-snd" class="em-btn glass mini-btn act" type="button" aria-label="Mute">
-        <svg id="em-ico-vol" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        <svg id="em-ico-mute" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-      </button>
-    </div>
-    <audio id="em-aud" preload="metadata"></audio>
-  </section>
+/* Slim Full-Width Liquid Glass Music Player */
+.em-card {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  background: radial-gradient(80% 80% at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 72%),
+              color-mix(in srgb, var(--panel) 84%, transparent);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: var(--fg);
+  contain: content;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.em-card * {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.em-top { display: flex; justify-content: center; align-items: center; text-align: center; margin-bottom: 8px; }
+.em-meta { min-width: 0; display: flex; align-items: baseline; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.em-meta h4 { margin: 0; font-size: 0.92rem; font-weight: 700; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.em-meta span { font-size: 0.72rem; color: var(--accent); opacity: 0.88; white-space: nowrap; }
 
-  <section class="code" aria-label="About me">
-    <div class="bar"><i class="d" style="background:#E5534B"></i><i class="d" style="background:#E8A93B"></i><i class="d" style="background:#3DBE7A"></i><span class="fn">index.html</span><i class="live" style="margin-left:auto" aria-hidden="true"></i></div>
-    <pre><code id="codeBox"><span class="l"><span class="n">1</span><span class="w">const</span> dev = {</span><span class="l"><span class="n">2</span>  <span class="k">brand</span>: <span class="s">"<span data-name>ALL IN ONE x IMRAN</span>"</span>,</span><span class="l"><span class="n">3</span>  <span class="k">greeting</span>: <span class="s">"Assalamualaikum"</span>,</span><span class="l"><span class="n">4</span>  <span class="k">builds</span>: [<span class="s">"Web"</span>, <span class="s">"Design"</span>, <span class="s">"Brand"</span>],</span><span class="l"><span class="n">5</span>  <span class="k">quality</span>: <span class="s">"Premium"</span>,</span><span class="l"><span class="n">6</span>  <span class="k">available</span>: <span class="b">true</span></span><span class="l"><span class="n">7</span>};</span><span class="l"><span class="n">8</span>dev.<span class="k">launch</span>();</span></code></pre>
-  </section>
+.em-prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+.em-prog-row span { font-size: 0.68rem; color: var(--muted); font-family: var(--font-mono); font-variant-numeric: tabular-nums; flex: none; }
 
-  <section class="gear-sec" aria-label="My Tech and Gear">
-    <h2 class="gear-head"><svg class="ico stroke" aria-hidden="true"><use href="#i-cpu"/></svg><span>My Tech &amp; Gear</span></h2>
-    <div class="gear-grid">
-      <article class="gcard" style="--c:var(--accent)">
-        <div class="gtop">
-          <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-phone"/></svg></span>
-          <span class="gbadge">Primary Phone</span>
-        </div>
-        <div class="ginfo">
-          <b>iPhone 17 Pro Max</b>
-          <small>Daily Driver • Pro Camera &amp; iOS</small>
-        </div>
-      </article>
+#em-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  width: 100%;
+  height: 3.5px;
+  border-radius: 4px;
+  background: linear-gradient(to right, var(--accent) 0%, var(--surface-hover) 0%);
+  outline: none;
+  cursor: pointer;
+}
+#em-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+.em-ctrl { display: flex; align-items: center; justify-content: center; gap: 16px; }
 
-      <article class="gcard" style="--c:var(--accent-2)">
-        <div class="gtop">
-          <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-phone"/></svg></span>
-          <span class="gbadge">Performance</span>
-        </div>
-        <div class="ginfo">
-          <b>Poco X8 Pro Max</b>
-          <small>Gaming &amp; Android Dev Testing</small>
-        </div>
-      </article>
+.em-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  outline: none !important;
+  transition: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateZ(0);
+}
+.em-btn:focus, .em-btn:focus-visible, .em-btn:active { outline: none !important; }
+.em-btn.act { color: var(--accent); }
 
-      <article class="gcard" style="--c:#22D3EE">
-        <div class="gtop">
-          <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-watch"/></svg></span>
-          <span class="gbadge">Wearable</span>
-        </div>
-        <div class="ginfo">
-          <b>Redmi Watch 6</b>
-          <small>AMOLED Fitness &amp; Smart Alerts</small>
-        </div>
-      </article>
+.em-card .glass {
+  color: var(--fg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.13) 0%, color-mix(in srgb, var(--accent) 12%, rgba(255, 255, 255, 0.03)) 100%);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+.em-card .glass::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.14), transparent);
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .em-card .glass:hover {
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    border-color: var(--accent);
+    box-shadow: 0 6px 14px var(--glow-1), inset 0 1px 2px rgba(255, 255, 255, 0.24);
+  }
+}
+.em-card .glass:active {
+  outline: none !important;
+}
+.em-card .mini-btn { width: 30px; height: 30px; border-radius: 50%; }
+.em-card .sm { width: 34px; height: 34px; border-radius: 50%; }
+.em-card .lg {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 28%, rgba(255,255,255,0.12)), color-mix(in srgb, var(--accent) 16%, transparent));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 4px 16px var(--glow-1), inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
+}
 
-      <article class="gcard" style="--c:#A855F7">
-        <div class="gtop">
-          <span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-earbuds"/></svg></span>
-          <span class="gbadge">Audio</span>
-        </div>
-        <div class="ginfo">
-          <b>MeloBuds N65</b>
-          <small>ANC Wireless Earbuds • Hi-Res</small>
-        </div>
-      </article>
-    </div>
-  </section>
-</main>
+.code { border-radius: 24px; border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line)); background: radial-gradient(80% 80% at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%), color-mix(in srgb, var(--panel) 84%, transparent); overflow: hidden; box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .12); contain: content; }
+.code .bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: color-mix(in srgb, var(--surface-hover) 65%, transparent); border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: .78rem; color: var(--code-dim); }
+.code .d { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.code .fn { margin-left: 4px; color: var(--code-fg); font-weight: 500; }
+.code .lv { margin-left: auto; text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; color: var(--ok); font-weight: 700; }
+.code .live { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: live 2s infinite; }
+.code pre { margin: 0; height: 256px; overflow: hidden; padding: 12px 14px; font-family: var(--font-mono); font-size: .8rem; line-height: 1.62; color: var(--code-fg); }
+.code pre code { display: block; --ch: 50%; animation: scrollup 10s linear infinite !important; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.code pre code > span { display: block; margin: 0; padding: 0; }
+.code .l { display: block; white-space: pre; }
+.code .n { display: inline-block; width: 22px; color: var(--code-dim); user-select: none; }
+.code .w { color: var(--code-kw); }
+.code .k { color: var(--code-key); }
+.code .s { color: var(--code-str); }
+.code .b { color: var(--code-bool); }
+.brand-font { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font-weight: 400; letter-spacing: .05em; font-synthesis: none; }
 
-<footer>
-  <div class="wrap"><p class="grad">© COPYRIGHT BY <span data-short>ALL IN ONE x IMRAN</span> - <span id="year">2026</span></p></div>
-</footer>
+.gear-sec { user-select: none; -webkit-user-select: none; pointer-events: none; }
+.gear-head { display: flex; align-items: center; gap: 8px; margin: 2px 4px 12px; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.gear-head .ico { color: var(--accent); }
+.gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+.gcard {
+  --c: var(--accent); padding: 14px; border-radius: 22px; border: 1px solid var(--line);
+  background: radial-gradient(80% 80% at 0% 0%, color-mix(in srgb, var(--c) 14%, transparent), transparent 72%), linear-gradient(155deg, var(--surface-hover), var(--surface));
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+.gtop { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.gcard .ring { width: 36px; height: 36px; }
+.gbadge { padding: 3px 8px; border-radius: 999px; font-size: .64rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 34%, transparent); white-space: nowrap; }
+.ginfo b { display: block; font-size: .92rem; font-weight: 700; line-height: 1.25; margin-bottom: 3px; }
+.ginfo small { display: block; font-size: .78rem; color: var(--muted); line-height: 1.35; }
 
-<!-- Design popup -->
-<div class="overlay" id="designOv" aria-hidden="true">
-  <div class="panel compact" role="dialog" aria-modal="true" aria-labelledby="dsTitle">
-    <div class="p-head">
-      <span class="tile t-mail"><svg class="ico stroke" aria-hidden="true"><use href="#i-palette"/></svg></span>
-      <div class="grow"><h2 id="dsTitle">Choose a design</h2><p>Tap a look. It changes right away.</p></div>
-      <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="ico stroke" aria-hidden="true"><use href="#i-close"/></svg></button>
-    </div>
-    <div class="dopts" role="radiogroup" aria-label="Design">
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="cosmic"><span class="sw" style="background:linear-gradient(135deg,#5B8DFF,#FF8F4F)"></span><span><b>Cosmic</b><small>Navy, blue and orange</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="black"><span class="sw" style="background:linear-gradient(135deg,#000000,#3A3A3A)"></span><span><b>Pure Black</b><small>True black, white, silver</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="blackgold"><span class="sw" style="background:linear-gradient(135deg,#F2C94C,#C98F2B)"></span><span><b>Black Gold</b><small>Black with luxe gold</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="blackred"><span class="sw" style="background:linear-gradient(135deg,#FF2D3D,#FF7A59)"></span><span><b>Black Red</b><small>Black with hot red</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="neon"><span class="sw" style="background:linear-gradient(135deg,#39FF88,#00E5FF)"></span><span><b>Neon Black</b><small>Black with neon green</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="blackviolet"><span class="sw" style="background:linear-gradient(135deg,#A855F7,#EC4899)"></span><span><b>Black Violet</b><small>Black with violet and pink</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="blackblue"><span class="sw" style="background:linear-gradient(135deg,#3B82F6,#06B6D4)"></span><span><b>Black Blue</b><small>Black with electric blue</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="noir"><span class="sw" style="background:linear-gradient(135deg,#DDB76F,#5ED1C3)"></span><span><b>Noir Gold</b><small>Dark, gold and teal</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="aurora"><span class="sw" style="background:linear-gradient(135deg,#B79CFF,#FF7EB6)"></span><span><b>Aurora</b><small>Violet and pink glow</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="true" data-d="emerald"><span class="sw" style="background:linear-gradient(135deg,#34D399,#A3E635)"></span><span><b>Emerald</b><small>Deep green and lime</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="crimson"><span class="sw" style="background:linear-gradient(135deg,#FF5A6E,#FFB36B)"></span><span><b>Crimson</b><small>Dark red and amber</small></span></button>
-      <button type="button" class="dopt" role="radio" aria-checked="false" data-d="ocean"><span class="sw" style="background:linear-gradient(135deg,#22D3EE,#818CF8)"></span><span><b>Ocean</b><small>Cyan and indigo</small></span></button>
-    </div>
-  </div>
-</div>
+footer { margin-top: auto; text-align: center; }
+footer .wrap { padding-block: 14px 18px; }
+footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em; }
+footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font-weight: 400; letter-spacing: .05em; opacity: 1; visibility: visible; }
 
-<!-- Free Fire Top-Up Page Modal -->
-<div class="overlay" id="topupOv" aria-hidden="true">
-  <div class="panel topup-panel" role="dialog" aria-modal="true" aria-labelledby="tuTitle">
-    <div class="p-head">
-      <span class="ring" style="--c:var(--accent)"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span>
-      <div class="grow"><h2 id="tuTitle">Free Fire Diamond Top-Up</h2><p>Enter Player UID and select a package</p></div>
-      <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="ico stroke" aria-hidden="true"><use href="#i-close"/></svg></button>
-    </div>
+.overlay {
+  position: fixed; inset: 0; z-index: 120; display: flex; align-items: flex-end; justify-content: center; padding: 16px;
+  background: var(--scrim); touch-action: none;
+  opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .16s ease, visibility .16s ease;
+}
+.overlay.open { opacity: 1; visibility: visible; pointer-events: auto; }
+.panel {
+  width: 100%; max-width: 440px; max-height: 82dvh; overflow-y: auto; padding: 20px; border-radius: 28px;
+  border: 1px solid var(--line); background: var(--panel); box-shadow: var(--shadow); touch-action: pan-y;
+  transform: translate3d(0, 14px, 0); opacity: 0;
+  transition: transform .22s cubic-bezier(.16, 1, .3, 1), opacity .18s ease;
+}
+.overlay.open .panel { transform: translate3d(0, 0, 0); opacity: 1; }
 
-    <div class="uid-box">
-      <label class="uid-label" for="ffUidInput">
-        <span>Player UID (BD Server)</span>
-        <span style="color:var(--accent)">Instant Delivery</span>
-      </label>
-      <input class="uid-input" id="ffUidInput" type="text" inputmode="numeric" enterkeyhint="done" pattern="[0-9]*" maxlength="15" placeholder="Enter Player UID (e.g., 1234567890)">
-    </div>
+#topupOv {
+  background: var(--scrim);
+  transition: opacity .15s ease-out, visibility .15s ease-out;
+}
+#topupOv .topup-panel {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 8px, 0) scale(.985);
+  opacity: 0;
+  transition: transform .18s cubic-bezier(.22, 1, .36, 1), opacity .15s ease-out;
+}
+#topupOv.open .topup-panel {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+}
+.p-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.p-head .tile { width: 40px; height: 40px; border-radius: 14px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); flex: none; }
+.p-head .grow { min-width: 0; flex: 1; }
+.p-head h2 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+.p-head p { margin: 2px 0 0; font-size: .8rem; color: var(--muted); }
+.dopts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.dopt {
+  display: flex; align-items: center; gap: 10px; padding: 10px 11px; border-radius: 16px; border: 1px solid var(--line);
+  background: var(--surface); text-align: left; cursor: pointer; transition: border-color .14s, background .14s, transform .1s;
+}
+.dopt:hover { background: var(--surface-hover); }
+.dopt:active { transform: scale(.97); }
+.dopt[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.dopt .sw { width: 22px; height: 22px; border-radius: 50%; flex: none; border: 1.5px solid rgba(255, 255, 255, .28); }
+.dopt b { display: block; font-size: .84rem; font-weight: 700; line-height: 1.2; }
+.dopt small { display: block; font-size: .72rem; color: var(--muted); line-height: 1.25; }
 
-    <div class="uid-label"><span>Diamond Package List</span><span id="selectedPkgLabel" style="color:var(--accent-2)">115 Diamond • ৳85</span></div>
-    <div class="dm-grid" id="dmGrid" role="radiogroup" aria-label="Diamond packages">
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="25 Diamond" data-price="৳25"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">25 Diamond</span><span class="dm-price">৳25</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="50 Diamond" data-price="৳45"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">50 Diamond</span><span class="dm-price">৳45</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="true" data-pkg="115 Diamond" data-price="৳85"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">115 Diamond</span><span class="dm-price">৳85</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="240 Diamond" data-price="৳170"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">240 Diamond</span><span class="dm-price">৳170</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="610 Diamond" data-price="৳415"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">610 Diamond</span><span class="dm-price">৳415</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="1240 Diamond" data-price="৳820"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-diamond"/></svg></span><span class="dm-info"><span class="dm-top">1240 Diamond</span><span class="dm-price">৳820</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="Weekly Membership" data-price="৳165" style="--c:var(--accent-2)"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="dm-info"><span class="dm-top">Weekly Pass</span><span class="dm-price">৳165</span></span></button>
-      <button type="button" class="dm-card" role="radio" aria-checked="false" data-pkg="Monthly Membership" data-price="৳810" style="--c:var(--accent-2)"><span class="ring"><svg class="ico stroke" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="dm-info"><span class="dm-top">Monthly Pass</span><span class="dm-price">৳810</span></span></button>
-    </div>
+.toast {
+  position: fixed; left: 50%; bottom: max(22px, env(safe-area-inset-bottom, 0px)); z-index: 60;
+  transform: translate(-50%, 16px); opacity: 0; pointer-events: none; padding: 10px 18px; border-radius: 999px;
+  background: var(--panel); color: var(--fg); border: 1px solid var(--accent); font-size: .84rem; font-weight: 600;
+  box-shadow: var(--shadow); transition: opacity .25s ease, transform .25s ease;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-    <button type="button" class="topup-submit" id="confirmTopupBtn">
-      <span>Confirm Order</span>
-      <svg class="ico stroke" aria-hidden="true"><use href="#i-ext"/></svg>
-    </button>
-  </div>
-</div>
+.topup-panel { max-width: 440px; padding: 16px; }
+.topup-panel .p-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.topup-panel .p-head .ring,
+.topup-panel .p-head .icon-btn { width: 36px; height: 36px; flex: none; }
+.topup-panel .p-head .icon-btn .ico { width: 46%; height: 46%; }
+.topup-panel .p-head h2 { font-size: .96rem; line-height: 1.2; margin: 0; }
+.topup-panel .p-head p { font-size: .74rem; line-height: 1.25; margin: 2px 0 0; }
+.uid-box { margin-bottom: 10px; }
+.uid-label { display: flex; align-items: center; justify-content: space-between; font-size: .75rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+.uid-input {
+  width: 100%; padding: 9px 12px; border-radius: 14px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--fg); font-family: var(--font-mono); font-size: .86rem; font-weight: 600;
+  text-align: center;
+  transition: border-color .15s, box-shadow .15s;
+}
+.uid-input::placeholder { text-align: center; font-weight: 500; }
+.uid-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.dm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin-bottom: 12px; }
+.dm-card {
+  --c: var(--accent);
+  display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 15px;
+  border: 1px solid var(--line);
+  background: radial-gradient(85% 90% at 0% 0%, color-mix(in srgb, var(--c) 12%, transparent), transparent 72%), linear-gradient(155deg, var(--surface-hover), var(--surface));
+  text-align: left; cursor: pointer;
+  transition: border-color .14s, background .14s, transform .1s, box-shadow .14s;
+}
+.dm-card:hover { background: var(--surface-hover); border-color: color-mix(in srgb, var(--c) 45%, var(--line)); }
+.dm-card:active { transform: scale(.97); }
+.dm-card .ring { width: 26px; height: 26px; }
+.dm-card .ring::after { display: none; }
+.dm-card[aria-checked="true"] {
+  border-color: var(--c);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--c) 22%, var(--panel)), color-mix(in srgb, var(--c) 11%, var(--surface)));
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--c) 24%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent) inset;
+}
+.dm-info { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+.dm-top { font-weight: 700; font-size: .82rem; line-height: 1.2; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dm-price { font-size: .74rem; font-weight: 700; color: var(--accent-2); line-height: 1.2; margin-top: 1px; }
+.topup-submit {
+  display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; padding: 10px 14px; border-radius: 15px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  cursor: pointer; font-weight: 700; font-size: .88rem; color: var(--fg);
+  background: radial-gradient(85% 90% at 0% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 72%), linear-gradient(155deg, var(--surface-hover), var(--surface));
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 18%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent) inset;
+  transition: border-color .14s, background .14s, transform .1s, box-shadow .14s;
+}
+.topup-submit:hover {
+  border-color: var(--accent);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--accent) 22%, var(--panel)), color-mix(in srgb, var(--accent) 11%, var(--surface)));
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 26%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent) inset;
+}
+.topup-submit:active { transform: scale(.98); }
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+@media (min-width: 560px) {
+  .tab { font-size: .84rem; padding: 10px 10px; gap: 7px; }
+  .tab .ring { width: 23px; height: 23px; }
+  .top-duos, .tabs { padding-inline: 14px; }
+  .sec { margin-top: 0; font-size: .84rem; }
+  .lrow { padding: 14px 18px 14px 19px; }
+  .code pre { height: 320px; }
+  footer .wrap { padding-block: 16px 12px; }
+  footer p { font-size: .84rem; }
+}
 
-<script src="./script.js?v=4"></script>
-</body>
-</html>
+@media (max-width: 559px) {
+  .overlay { align-items: center; }
+  .panel { max-width: none; max-height: 88dvh; border-radius: 26px; padding: 18px 16px; transform: translate3d(0, 14px, 0); opacity: 0; }
+  .overlay.open .panel { transform: translate3d(0, 0, 0); opacity: 1; }
+  #topupOv .topup-panel { transform: translate3d(0, 8px, 0) scale(.985); opacity: 0; }
+  #topupOv.open .topup-panel { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+}
+@media (max-width: 420px) {
+  .topbar .wrap { width: calc(100% - 24px); gap: 8px; }
+  .brand { gap: 8px; max-width: calc(100% - 70px); }
+  .brand .mini { width: 32px; height: 32px; min-width: 32px; min-height: 32px; flex-basis: 32px; }
+  .brand .name { font-size: clamp(.72rem, 3.1vw, .94rem); letter-spacing: .01em; }
+  .topbar .actions { gap: 5px; }
+  .topbar .icon-btn { width: 30px; height: 30px; min-width: 30px; min-height: 30px; }
+}
+@media (max-width: 380px) {
+  .tab { font-size: .68rem; gap: 4px; padding: 6px 3px; }
+  .tab .ring { width: 18px; height: 18px; }
+  .pill { padding: 4px 9px; font-size: .74rem; }
+  .gear-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .gcard { padding: 12px 10px; border-radius: 20px; }
+  .gcard .ring { width: 32px; height: 32px; }
+  .gbadge { padding: 2px 6px; font-size: .56rem; }
+  .ginfo b { font-size: .84rem; }
+  .ginfo small { font-size: .72rem; }
+}
+@media (max-width: 340px) {
+  .brand { gap: 6px; }
+  .brand .mini { width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-basis: 28px; }
+  .brand .name { font-size: .7rem; letter-spacing: 0; }
+}
+@keyframes scrollup { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, calc(var(--ch) * -1), 0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes rise { from { transform: translateY(10px); opacity: .001; } to { transform: none; opacity: 1; } }
+@keyframes cpop { 0% { opacity: 0; transform: translate3d(0, -18px, 0) scale(.86); } 65% { opacity: 1; transform: translate3d(0, 2px, 0) scale(1.01); } 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes live { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(52, 211, 153, 0); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+/* Enforce local Rubik Wet Paint font on brand titles */
+.brand .name, h1.hname, h1.hname .grad, .brand-font, footer [data-short] {
+  font-family: "Rubik Wet Paint", "Outfit", sans-serif !important;
+  font-weight: 400 !important;
+}
+
+
+/* 100% Reliable Keyframes Fly-In (Desktop, Android & iPhone) */
+@-webkit-keyframes smoothFlyIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -18px, 0);
+    transform: translate3d(0, -18px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes smoothFlyIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -18px, 0);
+    transform: translate3d(0, -18px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer {
+  -webkit-animation: smoothFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards !important;
+  animation: smoothFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards !important;
+  -webkit-animation-delay: var(--d, 0ms) !important;
+  animation-delay: var(--d, 0ms) !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.topbar { --d: 0ms; }
+.hero { --d: 65ms; }
+.top-duos { --d: 130ms; }
+.tabs { --d: 195ms; }
+.ccard { --d: 260ms; }
+.sec { --d: 325ms; }
+.lrow:nth-child(1) { --d: 390ms; }
+.lrow:nth-child(2) { --d: 455ms; }
+.lrow:nth-child(3) { --d: 520ms; }
+.lrow:nth-child(4) { --d: 585ms; }
+.lrow:nth-child(5) { --d: 650ms; }
+.em-card { --d: 715ms; }
+.code { --d: 780ms; }
+.gear-head { --d: 845ms; }
+.gcard:nth-child(1) { --d: 910ms; }
+.gcard:nth-child(2) { --d: 975ms; }
+.gcard:nth-child(3) { --d: 1040ms; }
+.gcard:nth-child(4) { --d: 1105ms; }
+footer { --d: 1170ms; }
+
+
+
+/* Desktop & Wide Screen 2-Column Layout (fills side whitespace) */
+@media (min-width: 860px) {
+  .wrap, .topbar .wrap {
+    max-width: 1120px;
+    width: min(100% - 48px, 1120px);
+  }
+  .page {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+    gap: 24px 28px;
+    padding-block: 96px 24px;
+  }
+  .col-left {
+    position: sticky;
+    top: 88px;
+  }
+  .col-right {
+    gap: 16px;
+  }
+  .em-card {
+    grid-column: 1 / -1;
+  }
+  .code {
+    grid-column: 1 / -1;
+  }
+  .gear-sec {
+    grid-column: 1 / -1;
+  }
+  .gear-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+  h1.hname {
+    font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+  }
+}
+
+
+/* 120FPS Fail-Safe GPU Compositor Scroll-Reveal */
+.sr-wait {
+  opacity: 0 !important;
+  -webkit-animation: none !important;
+  animation: none !important;
+  -webkit-transform: translate3d(0, 14px, 0) !important;
+  transform: translate3d(0, 14px, 0) !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.sr-in {
+  -webkit-animation: smoothScrollIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  animation: smoothScrollIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  -webkit-animation-delay: var(--sd, 0ms) !important;
+  animation-delay: var(--sd, 0ms) !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+@-webkit-keyframes smoothScrollIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes smoothScrollIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
