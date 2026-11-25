@@ -146,8 +146,10 @@
       cx.lineTo(p.x, p.y);
       cx.stroke();
 
-      cx.shadowBlur = 10;
-      cx.shadowColor = col;
+      cx.fillStyle = col;
+      cx.beginPath();
+      cx.arc(p.x, p.y, p.r * 2.1, 0, 6.2832);
+      cx.fill();
       cx.fillStyle = '#ffffff';
       cx.beginPath();
       cx.arc(p.x, p.y, p.r, 0, 6.2832);
@@ -155,9 +157,14 @@
       cx.restore();
     }
   }
-  var lastFx = 0;
+  var lastFx = 0, isScrolling = false, scrollTimer = null;
+  window.addEventListener('scroll', function () {
+    isScrolling = true;
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () { isScrolling = false; }, 120);
+  }, { passive: true });
   function fxStep(ts) {
-    if (!document.hidden && !active && ts - lastFx > 16) {
+    if (!document.hidden && !active && !isScrolling && ts - lastFx > 22) {
       lastFx = ts;
       for (var i = 0; i < ps.length; i++) {
         var p = ps[i];
@@ -410,9 +417,7 @@
     $('#em-shf').addEventListener('click', function (e) {
       shf = !shf; e.currentTarget.classList.toggle('act', shf);
     });
-    $('#em-like').addEventListener('click', function (e) {
-      e.currentTarget.classList.toggle('act');
-    });
+
     $('#em-snd').addEventListener('click', function (e) {
       aud.muted = !aud.muted;
       if (icoVol) icoVol.style.display = aud.muted ? 'none' : 'block';
