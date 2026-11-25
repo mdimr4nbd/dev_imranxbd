@@ -99,22 +99,46 @@
     cv.width = W;
     cv.height = H;
   }
-  function spawn(p, first) {
-    p.x = Math.random() * W;
-    p.y = first ? Math.random() * H : -45;
-    p.r = 0.85 + Math.random() * 0.45;          // ছোট মাথা (small glowing head)
-    p.len = 18 + Math.random() * 14;            // হালকা লম্বা লেজ (slightly longer tail)
-    p.v = 0.45 + Math.random() * 0.3;
-    p.life = first ? Math.floor(Math.random() * 350) : 0;
-    p.max = 520 + Math.random() * 520;
+  function pickSpacedX(excludeP) {
+    var pad = Math.max(36, W * 0.13);           // দুই পাশে ফাঁকা জায়গা (করনার দিয়ে নামবে না)
+    var usableW = Math.max(60, W - pad * 2);
+    var minGap = usableW / (W < 600 ? 6 : 9);
+    var bestX = pad + Math.random() * usableW;
+    for (var attempt = 0; attempt < 12; attempt++) {
+      var cand = pad + Math.random() * usableW;
+      var ok = true;
+      for (var j = 0; j < ps.length; j++) {
+        if (ps[j] === excludeP) continue;
+        if (Math.abs(ps[j].x - cand) < minGap && Math.abs(ps[j].y - (excludeP ? excludeP.y : 0)) < 140) {
+          ok = false;
+          break;
+        }
+      }
+      if (ok) { bestX = cand; break; }
+    }
+    return bestX;
+  }
+  function spawn(p, first, slotIdx, totalSlots) {
+    p.r = 0.85 + Math.random() * 0.45;          // ছোট মাথা
+    p.len = 18 + Math.random() * 14;            // হালকা লম্বা লেজ
+    p.v = 0.45 + Math.random() * 0.25;
+    if (first && totalSlots > 0) {
+      var band = H / totalSlots;
+      p.y = slotIdx * band + Math.random() * (band * 0.65);
+    } else {
+      p.y = -45 - Math.random() * 90;           // উপরে রিস্পন হওয়ার সময়ও গ্যাপ থাকবে
+    }
+    p.x = pickSpacedX(p);
+    p.life = first ? Math.floor(Math.random() * 280) : 0;
+    p.max = 540 + Math.random() * 480;
     p.c = Math.random() < 0.5 ? 0 : 1;
   }
   function fxInit() {
     ps = [];
-    var count = W < 600 ? 10 : 16;              // পার্টিকেল সংখ্যা কমানো হয়েছে
+    var count = W < 600 ? 9 : 14;
     for (var i = 0; i < count; i++) {
       var p = {};
-      spawn(p, true);
+      spawn(p, true, i, count);
       ps.push(p);
     }
   }
@@ -446,13 +470,6 @@
 
   (function () {
     var box = $('#codeBox'); if (!box) return;
-    var codeCard = box.closest('.code'), codeVisible = true;
-    if (codeCard && 'IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        codeVisible = entries[0].isIntersecting;
-        codeCard.classList.toggle('paused', !codeVisible);
-      }, { threshold: 0.01 }).observe(codeCard);
-    }
     function p2(x) { return (x < 10 ? '0' : '') + x; }
     function nowStr() { var d = new Date(); return p2(d.getHours()) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds()); }
     var CODE = [
@@ -486,12 +503,12 @@
     }
     box.innerHTML = '';
     box.appendChild(copy(false));
-    if (!reduce) { box.appendChild(copy(true)); box.style.animationDuration = '9s'; }
+    if (!reduce) { box.appendChild(copy(true)); }
     var liveNodes = $$('[data-live]', box);
     var liveChanNodes = $$('[data-live-chan]', box);
     var liveDesignNodes = $$('[data-live-design]', box);
     function tick() {
-      if (document.hidden || !codeVisible) return;
+      if (document.hidden) return;
       var now = nowStr();
       var curChan = '"' + chan + '"';
       var curDesign = '"' + (root.getAttribute('data-design') || 'cosmic') + '"';
@@ -522,12 +539,9 @@
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
 
 
-  /* Sequential delay assignment for 100% reliable refresh animation */
+  /* Instant replay on bfcache back/forward navigation */
   (function () {
     var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer');
-    items.forEach(function (el, i) {
-      el.style.setProperty('--d', (i * 65) + 'ms');
-    });
     window.addEventListener('pageshow', function (e) {
       if (e.persisted) {
         items.forEach(function (el) {
