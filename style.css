@@ -613,20 +613,19 @@ footer { --d: 1170ms; }
 }
 
 
-/* 120FPS Flicker-Free GPU Compositor Scroll-Reveal */
+/* 120FPS Fail-Safe GPU Compositor Scroll-Reveal */
 .sr-wait {
   opacity: 0 !important;
   -webkit-animation: none !important;
   animation: none !important;
-  -webkit-transform: translate3d(0, 16px, 0) !important;
-  transform: translate3d(0, 16px, 0) !important;
+  -webkit-transform: translate3d(0, 14px, 0) !important;
+  transform: translate3d(0, 14px, 0) !important;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 .sr-in {
-  opacity: 1 !important;
-  -webkit-animation: smoothScrollIn 0.44s cubic-bezier(0.16, 1, 0.3, 1) backwards !important;
-  animation: smoothScrollIn 0.44s cubic-bezier(0.16, 1, 0.3, 1) backwards !important;
+  -webkit-animation: smoothScrollIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  animation: smoothScrollIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) both !important;
   -webkit-animation-delay: var(--sd, 0ms) !important;
   animation-delay: var(--sd, 0ms) !important;
   -webkit-backface-visibility: hidden;
