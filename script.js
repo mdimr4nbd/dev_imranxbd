@@ -361,14 +361,17 @@
     }
   })();
 
-  /* Compact Liquid Glass Music Player */
+  /* Slim Full-Width Liquid Glass Music Player */
   (function () {
     var songs = [
-      { t: 'My Favorite Track', a: 'ALL IN ONE x IMRAN', s: './assets/song1.mp3' },
-      { t: 'Midnight Emerald', a: 'IMRAN', s: './assets/song2.mp3' }
+      { t: 'First Song Name', a: 'ALL IN ONE x IMRAN', s: './assets/song1.mp3' },
+      { t: 'Second Song Name', a: 'ALL IN ONE x IMRAN', s: './assets/song2.mp3' },
+      { t: 'Third Song Name', a: 'ALL IN ONE x IMRAN', s: './assets/song3.mp3' }
     ];
     var idx = 0, shf = false;
     var aud = $('#em-aud'), bar = $('#em-bar'), ply = $('#em-ply');
+    var icoPlay = $('#em-ico-play'), icoPause = $('#em-ico-pause');
+    var icoVol = $('#em-ico-vol'), icoMute = $('#em-ico-mute');
     if (!aud || !bar || !ply) return;
 
     function fmt(s) {
@@ -384,8 +387,15 @@
       bar.style.background = 'linear-gradient(to right, var(--accent) 0%, var(--surface-hover) 0%)';
     }
     function playToggle() {
-      if (aud.paused) { aud.play(); ply.textContent = '⏸'; }
-      else { aud.pause(); ply.textContent = '▶'; }
+      if (aud.paused) {
+        aud.play();
+        if (icoPlay) icoPlay.style.display = 'none';
+        if (icoPause) icoPause.style.display = 'block';
+      } else {
+        aud.pause();
+        if (icoPlay) icoPlay.style.display = 'block';
+        if (icoPause) icoPause.style.display = 'none';
+      }
     }
 
     ply.addEventListener('click', playToggle);
@@ -405,7 +415,8 @@
     });
     $('#em-snd').addEventListener('click', function (e) {
       aud.muted = !aud.muted;
-      e.currentTarget.textContent = aud.muted ? '🔇' : '🔊';
+      if (icoVol) icoVol.style.display = aud.muted ? 'none' : 'block';
+      if (icoMute) icoMute.style.display = aud.muted ? 'block' : 'none';
       e.currentTarget.classList.toggle('act', !aud.muted);
     });
 
