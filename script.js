@@ -588,4 +588,24 @@
       }
     });
   })();
+  (function () {
+    var startY = 0, startX = 0;
+    document.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 1) {
+        startY = e.touches[0].clientY;
+        startX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+      if (e.touches.length !== 1) return;
+      if (e.target && e.target.closest('input, textarea')) return;
+      var dy = e.touches[0].clientY - startY;
+      var dx = e.touches[0].clientX - startX;
+      if (dy > 0 && Math.abs(dy) > Math.abs(dx)) {
+        var scroller = e.target && e.target.closest('.panel');
+        var top = scroller ? scroller.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0);
+        if (top <= 0) e.preventDefault();
+      }
+    }, { passive: false });
+  })();
 })();
