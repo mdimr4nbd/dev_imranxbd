@@ -539,9 +539,12 @@
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
 
 
-  /* Instant replay on bfcache back/forward navigation */
+  /* Sequential wave (dhew) delay assignment & bfcache replay */
   (function () {
     var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer');
+    items.forEach(function (el, i) {
+      el.style.setProperty('--d', (i * 65) + 'ms');
+    });
     window.addEventListener('pageshow', function (e) {
       if (e.persisted) {
         items.forEach(function (el) {
