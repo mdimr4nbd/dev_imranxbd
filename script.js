@@ -514,8 +514,8 @@
     var c1 = copy(false);
     box.appendChild(c1);
     if (!reduce) {
-      var c2 = copy(true);
-      box.appendChild(c2);
+      box.appendChild(copy(true));
+      box.appendChild(copy(true));
       var lastCodeH = 0;
       function syncCodeHeight() {
         var h = Math.round(c1.getBoundingClientRect().height * 100) / 100;
@@ -585,21 +585,37 @@
 
     if (belowItems.length && 'IntersectionObserver' in window && !reduce) {
       var batchCount = 0, batchTimer = null;
+      function revealEl(target) {
+        if (!target.classList.contains('sr-wait')) return;
+        io.unobserve(target);
+        target.style.setProperty('--sd', (batchCount * 35) + 'ms');
+        batchCount++;
+        clearTimeout(batchTimer);
+        batchTimer = setTimeout(function () { batchCount = 0; }, 120);
+        target.classList.remove('sr-wait');
+        target.classList.add('sr-in');
+      }
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var target = entry.target;
-          io.unobserve(target);
-          target.style.setProperty('--sd', (batchCount * 40) + 'ms');
-          batchCount++;
-          clearTimeout(batchTimer);
-          batchTimer = setTimeout(function () { batchCount = 0; }, 120);
-          target.classList.remove('sr-wait');
-          target.classList.add('sr-in');
+          if (entry.isIntersecting) revealEl(entry.target);
         });
-      }, { rootMargin: '0px 0px 25px 0px', threshold: 0.01 });
+      }, { rootMargin: '0px 0px 80px 0px', threshold: 0 });
 
       belowItems.forEach(function (el) { io.observe(el); });
+
+      /* Fail-safe scroll & timer check so fast scrolling never leaves any card hidden */
+      function checkVisible() {
+        var h = window.innerHeight || document.documentElement.clientHeight;
+        for (var i = 0; i < belowItems.length; i++) {
+          var el = belowItems[i];
+          if (el.classList.contains('sr-wait')) {
+            var r = el.getBoundingClientRect();
+            if (r.top < h + 60) revealEl(el);
+          }
+        }
+      }
+      window.addEventListener('scroll', checkVisible, { passive: true });
+      setTimeout(checkVisible, 350);
     }
 
     window.addEventListener('pageshow', function (e) {
