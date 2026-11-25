@@ -203,7 +203,15 @@
     requestAnimationFrame(fxStep);
   }
   fxSize(); fxInit(); fxColors();
-  window.addEventListener('resize', function () { fxSize(); fxInit(); if (reduce) fxDraw(); }, { passive: true });
+  window.addEventListener('resize', function () {
+    var nw = window.innerWidth, nh = window.innerHeight;
+    if (nw !== W) {
+      fxSize(); fxInit();
+    } else if (Math.abs(nh - H) > 140) {
+      fxSize();
+    }
+    if (reduce) fxDraw();
+  }, { passive: true });
   if (reduce) fxDraw(); else requestAnimationFrame(fxStep);
 
   (function () {
@@ -503,8 +511,25 @@
       return wrap;
     }
     box.innerHTML = '';
-    box.appendChild(copy(false));
-    if (!reduce) { box.appendChild(copy(true)); }
+    var c1 = copy(false);
+    box.appendChild(c1);
+    if (!reduce) {
+      var c2 = copy(true);
+      box.appendChild(c2);
+      var lastCodeH = 0;
+      function syncCodeHeight() {
+        var h = Math.round(c1.getBoundingClientRect().height * 100) / 100;
+        if (h > 0 && h !== lastCodeH) {
+          lastCodeH = h;
+          box.style.setProperty('--ch', h + 'px');
+        }
+      }
+      syncCodeHeight();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncCodeHeight);
+      }
+      window.addEventListener('resize', syncCodeHeight, { passive: true });
+    }
     var liveNodes = $$('[data-live]', box);
     var liveChanNodes = $$('[data-live-chan]', box);
     var liveDesignNodes = $$('[data-live-design]', box);
@@ -571,12 +596,8 @@
           batchTimer = setTimeout(function () { batchCount = 0; }, 120);
           target.classList.remove('sr-wait');
           target.classList.add('sr-in');
-          target.addEventListener('animationend', function onEnd() {
-            target.style.willChange = 'auto';
-            target.removeEventListener('animationend', onEnd);
-          });
         });
-      }, { rootMargin: '0px 0px -15px 0px', threshold: 0.04 });
+      }, { rootMargin: '0px 0px 25px 0px', threshold: 0.01 });
 
       belowItems.forEach(function (el) { io.observe(el); });
     }
