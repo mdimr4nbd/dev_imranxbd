@@ -323,8 +323,8 @@ h1.hname .grad { min-width: 0; padding-inline: 2px; }
 .code .lv { margin-left: auto; text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; color: var(--ok); font-weight: 700; }
 .code .live { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: live 2s infinite; }
 .code pre { margin: 0; height: 256px; overflow: hidden; padding: 12px 14px; font-family: var(--font-mono); font-size: .8rem; line-height: 1.62; color: var(--code-fg); }
-.code pre code { display: block; animation: scrollup 9s linear infinite; will-change: transform; }
-.code.paused pre code { animation-play-state: paused; }
+.code pre code { display: block; animation: scrollup 11s linear infinite !important; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.code pre code > span { display: block; }
 .code .l { display: block; white-space: pre; }
 .code .n { display: inline-block; width: 22px; color: var(--code-dim); user-select: none; }
 .code .w { color: var(--code-kw); }
@@ -503,7 +503,7 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
   .brand .mini { width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-basis: 28px; }
   .brand .name { font-size: .7rem; letter-spacing: 0; }
 }
-@keyframes scrollup { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -50%, 0); } }
+@keyframes scrollup { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, -50%, 0); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes rise { from { transform: translateY(10px); opacity: .001; } to { transform: none; opacity: 1; } }
 @keyframes cpop { 0% { opacity: 0; transform: translate3d(0, -18px, 0) scale(.86); } 65% { opacity: 1; transform: translate3d(0, 2px, 0) scale(1.01); } 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
@@ -522,8 +522,8 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 @-webkit-keyframes smoothFlyIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, -18px, 0);
-    transform: translate3d(0, -18px, 0);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
   }
   100% {
     opacity: 1;
@@ -534,8 +534,8 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 @keyframes smoothFlyIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, -18px, 0);
-    transform: translate3d(0, -18px, 0);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
   }
   100% {
     opacity: 1;
@@ -545,14 +545,30 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
 }
 
 .topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer {
-  opacity: 0;
-  -webkit-animation: smoothFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-  animation: smoothFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-  -webkit-animation-delay: var(--d, 0ms) !important;
-  animation-delay: var(--d, 0ms) !important;
+  -webkit-animation: smoothFlyIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: smoothFlyIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+.topbar { animation-delay: 0ms; }
+.hero { animation-delay: 25ms; }
+.top-duos { animation-delay: 50ms; }
+.tabs { animation-delay: 75ms; }
+.ccard { animation-delay: 100ms; }
+.sec { animation-delay: 60ms; }
+.lrow:nth-child(1) { animation-delay: 80ms; }
+.lrow:nth-child(2) { animation-delay: 105ms; }
+.lrow:nth-child(3) { animation-delay: 130ms; }
+.lrow:nth-child(4) { animation-delay: 155ms; }
+.lrow:nth-child(5) { animation-delay: 180ms; }
+.em-card { animation-delay: 140ms; }
+.code { animation-delay: 170ms; }
+.gear-head { animation-delay: 190ms; }
+.gcard:nth-child(1) { animation-delay: 205ms; }
+.gcard:nth-child(2) { animation-delay: 220ms; }
+.gcard:nth-child(3) { animation-delay: 235ms; }
+.gcard:nth-child(4) { animation-delay: 250ms; }
+footer { animation-delay: 260ms; }
 
 
 
