@@ -101,9 +101,9 @@
   }
   function spawn(p, first) {
     p.x = Math.random() * W;
-    p.y = first ? Math.random() * H : -40;
-    p.r = 1 + Math.random() * 0.7;
-    p.len = 10 + Math.random() * 10;
+    p.y = first ? Math.random() * H : -45;
+    p.r = 0.85 + Math.random() * 0.45;          // ছোট মাথা (small glowing head)
+    p.len = 18 + Math.random() * 14;            // হালকা লম্বা লেজ (slightly longer tail)
     p.v = 0.45 + Math.random() * 0.3;
     p.life = first ? Math.floor(Math.random() * 350) : 0;
     p.max = 520 + Math.random() * 520;
@@ -111,7 +111,7 @@
   }
   function fxInit() {
     ps = [];
-    var count = W < 600 ? 18 : 28;
+    var count = W < 600 ? 10 : 16;              // পার্টিকেল সংখ্যা কমানো হয়েছে
     for (var i = 0; i < count; i++) {
       var p = {};
       spawn(p, true);
@@ -133,22 +133,25 @@
 
       var grad = cx.createLinearGradient(p.x, tailY, p.x, p.y);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
-      grad.addColorStop(0.65, col);
+      grad.addColorStop(0.6, col);
       grad.addColorStop(1, '#ffffff');
 
       cx.save();
       cx.globalAlpha = alpha;
-      cx.strokeStyle = grad;
-      cx.lineWidth = p.r * 1.15;
-      cx.lineCap = 'round';
-      cx.beginPath();
-      cx.moveTo(p.x, tailY);
-      cx.lineTo(p.x, p.y);
-      cx.stroke();
 
+      /* পেছনে চিকন হয়ে শেষ হওয়া লেজ (Tapered Comet Tail) */
+      cx.fillStyle = grad;
+      cx.beginPath();
+      cx.moveTo(p.x, tailY);                    // একদম চিকন সুঁইয়ের মতো শেষ বিন্দু
+      cx.lineTo(p.x - p.r * 0.9, p.y);          // মাথার বাম পাশ
+      cx.lineTo(p.x + p.r * 0.9, p.y);          // মাথার ডান পাশ
+      cx.closePath();
+      cx.fill();
+
+      /* মাথা (আগের মতোই গ্লোয়িং বিন্দু, সাইজ ছোট) */
       cx.fillStyle = col;
       cx.beginPath();
-      cx.arc(p.x, p.y, p.r * 2.1, 0, 6.2832);
+      cx.arc(p.x, p.y, p.r * 1.9, 0, 6.2832);
       cx.fill();
       cx.fillStyle = '#ffffff';
       cx.beginPath();
