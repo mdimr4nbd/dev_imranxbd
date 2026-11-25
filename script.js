@@ -184,14 +184,9 @@
       cx.restore();
     }
   }
-  var lastFx = 0, isScrolling = false, scrollTimer = null;
-  window.addEventListener('scroll', function () {
-    isScrolling = true;
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function () { isScrolling = false; }, 120);
-  }, { passive: true });
+  var lastFx = 0;
   function fxStep(ts) {
-    if (!document.hidden && !active && !isScrolling && ts - lastFx > 22) {
+    if (!document.hidden && !active && ts - lastFx > 16) {
       lastFx = ts;
       for (var i = 0; i < ps.length; i++) {
         var p = ps[i];
@@ -539,12 +534,47 @@
   if (!reduce && phrases.length > 1) typeLoop(); else typed.textContent = phrases[0];
 
 
-  /* Sequential wave (dhew) delay assignment & bfcache replay */
+  /* Sequential wave (dhew) for visible elements + Smooth Scroll-Reveal for lower sections */
   (function () {
     var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer');
-    items.forEach(function (el, i) {
-      el.style.setProperty('--d', (i * 65) + 'ms');
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var aboveIdx = 0;
+    var belowItems = [];
+
+    items.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (reduce || !('IntersectionObserver' in window) || rect.top < vh - 20) {
+        el.style.setProperty('--d', (aboveIdx * 65) + 'ms');
+        aboveIdx++;
+      } else {
+        el.classList.add('sr-wait');
+        belowItems.push(el);
+      }
     });
+
+    if (belowItems.length && 'IntersectionObserver' in window && !reduce) {
+      var batchCount = 0, batchTimer = null;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var target = entry.target;
+          io.unobserve(target);
+          target.style.setProperty('--sd', (batchCount * 55) + 'ms');
+          batchCount++;
+          clearTimeout(batchTimer);
+          batchTimer = setTimeout(function () { batchCount = 0; }, 120);
+          target.classList.remove('sr-wait');
+          target.classList.add('sr-in');
+          target.addEventListener('animationend', function onEnd() {
+            target.style.willChange = 'auto';
+            target.removeEventListener('animationend', onEnd);
+          });
+        });
+      }, { rootMargin: '0px 0px -30px 0px', threshold: 0.06 });
+
+      belowItems.forEach(function (el) { io.observe(el); });
+    }
+
     window.addEventListener('pageshow', function (e) {
       if (e.persisted) {
         items.forEach(function (el) {
