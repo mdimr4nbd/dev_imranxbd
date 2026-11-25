@@ -323,8 +323,8 @@ h1.hname .grad { min-width: 0; padding-inline: 2px; }
 .code .lv { margin-left: auto; text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; color: var(--ok); font-weight: 700; }
 .code .live { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: live 2s infinite; }
 .code pre { margin: 0; height: 256px; overflow: hidden; padding: 12px 14px; font-family: var(--font-mono); font-size: .8rem; line-height: 1.62; color: var(--code-fg); }
-.code pre code { display: block; animation: scrollup 11s linear infinite !important; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.code pre code > span { display: block; }
+.code pre code { display: block; --ch: 50%; animation: scrollup 10s linear infinite !important; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.code pre code > span { display: block; margin: 0; padding: 0; }
 .code .l { display: block; white-space: pre; }
 .code .n { display: inline-block; width: 22px; color: var(--code-dim); user-select: none; }
 .code .w { color: var(--code-kw); }
@@ -503,7 +503,7 @@ footer [data-short] { font-family: "Rubik Wet Paint", "Outfit", sans-serif; font
   .brand .mini { width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-basis: 28px; }
   .brand .name { font-size: .7rem; letter-spacing: 0; }
 }
-@keyframes scrollup { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, -50%, 0); } }
+@keyframes scrollup { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, calc(var(--ch) * -1), 0); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes rise { from { transform: translateY(10px); opacity: .001; } to { transform: none; opacity: 1; } }
 @keyframes cpop { 0% { opacity: 0; transform: translate3d(0, -18px, 0) scale(.86); } 65% { opacity: 1; transform: translate3d(0, 2px, 0) scale(1.01); } 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
@@ -613,29 +613,30 @@ footer { --d: 1170ms; }
 }
 
 
-/* 120FPS Pure GPU Compositor Scroll-Reveal */
+/* 120FPS Flicker-Free GPU Compositor Scroll-Reveal */
 .sr-wait {
   opacity: 0 !important;
   -webkit-animation: none !important;
   animation: none !important;
-  -webkit-transform: translate3d(0, 18px, 0);
-  transform: translate3d(0, 18px, 0);
-  will-change: transform, opacity;
+  -webkit-transform: translate3d(0, 16px, 0) !important;
+  transform: translate3d(0, 16px, 0) !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .sr-in {
-  -webkit-animation: smoothScrollIn 0.46s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-  animation: smoothScrollIn 0.46s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  opacity: 1 !important;
+  -webkit-animation: smoothScrollIn 0.44s cubic-bezier(0.16, 1, 0.3, 1) backwards !important;
+  animation: smoothScrollIn 0.44s cubic-bezier(0.16, 1, 0.3, 1) backwards !important;
   -webkit-animation-delay: var(--sd, 0ms) !important;
   animation-delay: var(--sd, 0ms) !important;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 @-webkit-keyframes smoothScrollIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 18px, 0);
-    transform: translate3d(0, 18px, 0);
+    -webkit-transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 16px, 0);
   }
   100% {
     opacity: 1;
@@ -646,8 +647,8 @@ footer { --d: 1170ms; }
 @keyframes smoothScrollIn {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 18px, 0);
-    transform: translate3d(0, 18px, 0);
+    -webkit-transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 16px, 0);
   }
   100% {
     opacity: 1;
