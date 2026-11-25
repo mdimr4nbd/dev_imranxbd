@@ -101,10 +101,10 @@
   }
   function spawn(p, first) {
     p.x = Math.random() * W;
-    p.y = first ? Math.random() * H : -40;      // ওপর থেকে শুরু
-    p.r = 1 + Math.random() * 0.7;              // মাথার বিন্দু
-    p.len = 10 + Math.random() * 10;              // ছোট লেজের দৈর্ঘ্য
-    p.v = 0.45 + Math.random() * 0.3;           // নিচে নামার গতি
+    p.y = first ? Math.random() * H : -40;
+    p.r = 1 + Math.random() * 0.7;
+    p.len = 10 + Math.random() * 10;
+    p.v = 0.45 + Math.random() * 0.3;
     p.life = first ? Math.floor(Math.random() * 350) : 0;
     p.max = 520 + Math.random() * 520;
     p.c = Math.random() < 0.5 ? 0 : 1;
@@ -123,7 +123,6 @@
     for (var i = 0; i < ps.length; i++) {
       var p = ps[i];
       var progress = p.life / p.max;
-      /* শুরুতে স্মুথ ফেইড-ইন এবং নিচে নামার সাথে সাথে ধীরে ধীরে ভ্যানিশ */
       var fadeIn = Math.min(1, p.life / 45);
       var fadeOut = progress > 0.45 ? Math.max(0, 1 - (progress - 0.45) / 0.55) : 1;
       var alpha = 0.85 * fadeIn * fadeOut;
@@ -132,7 +131,6 @@
       var col = cols[p.c];
       var tailY = p.y - p.len;
 
-      /* লেজ (gradient রেখা) */
       var grad = cx.createLinearGradient(p.x, tailY, p.x, p.y);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
       grad.addColorStop(0.65, col);
@@ -148,7 +146,6 @@
       cx.lineTo(p.x, p.y);
       cx.stroke();
 
-      /* মাথা (গ্লোয়িং বিন্দু) */
       cx.shadowBlur = 10;
       cx.shadowColor = col;
       cx.fillStyle = '#ffffff';
@@ -364,6 +361,70 @@
     }
   })();
 
+  /* Compact Liquid Glass Music Player */
+  (function () {
+    var songs = [
+      { t: 'My Favorite Track', a: 'ALL IN ONE x IMRAN', s: './assets/song1.mp3' },
+      { t: 'Midnight Emerald', a: 'IMRAN', s: './assets/song2.mp3' }
+    ];
+    var idx = 0, shf = false;
+    var aud = $('#em-aud'), bar = $('#em-bar'), ply = $('#em-ply');
+    if (!aud || !bar || !ply) return;
+
+    function fmt(s) {
+      if (isNaN(s)) return '00:00';
+      var m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+    function load(i) {
+      $('#em-t').textContent = songs[i].t;
+      $('#em-a').textContent = songs[i].a;
+      aud.src = songs[i].s;
+      bar.value = 0;
+      bar.style.background = 'linear-gradient(to right, var(--accent) 0%, var(--surface-hover) 0%)';
+    }
+    function playToggle() {
+      if (aud.paused) { aud.play(); ply.textContent = '⏸'; }
+      else { aud.pause(); ply.textContent = '▶'; }
+    }
+
+    ply.addEventListener('click', playToggle);
+    $('#em-nxt').addEventListener('click', function () {
+      idx = shf ? Math.floor(Math.random() * songs.length) : (idx + 1) % songs.length;
+      load(idx); playToggle();
+    });
+    $('#em-prv').addEventListener('click', function () {
+      idx = (idx - 1 + songs.length) % songs.length;
+      load(idx); playToggle();
+    });
+    $('#em-shf').addEventListener('click', function (e) {
+      shf = !shf; e.currentTarget.classList.toggle('act', shf);
+    });
+    $('#em-like').addEventListener('click', function (e) {
+      e.currentTarget.classList.toggle('act');
+    });
+    $('#em-snd').addEventListener('click', function (e) {
+      aud.muted = !aud.muted;
+      e.currentTarget.textContent = aud.muted ? '🔇' : '🔊';
+      e.currentTarget.classList.toggle('act', !aud.muted);
+    });
+
+    aud.addEventListener('timeupdate', function () {
+      if (!aud.duration) return;
+      var p = (aud.currentTime / aud.duration) * 100;
+      bar.value = p;
+      bar.style.background = 'linear-gradient(to right, var(--accent) ' + p + '%, var(--surface-hover) ' + p + '%)';
+      $('#em-c').textContent = fmt(aud.currentTime);
+      $('#em-r').textContent = '-' + fmt(aud.duration - aud.currentTime);
+    });
+    aud.addEventListener('ended', function () { $('#em-nxt').click(); });
+    bar.addEventListener('input', function () {
+      if (aud.duration) aud.currentTime = (bar.value / 100) * aud.duration;
+    });
+
+    load(0);
+  })();
+
   (function () {
     var box = $('#codeBox'); if (!box) return;
     var codeCard = box.closest('.code'), codeVisible = true;
@@ -444,7 +505,7 @@
 
   /* Sequential delay assignment for 100% reliable refresh animation */
   (function () {
-    var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .code, .gear-head, .gcard, footer');
+    var items = $$('.topbar, .hero, .top-duos, .tabs, .ccard, .sec, .lrow, .em-card, .code, .gear-head, .gcard, footer');
     items.forEach(function (el, i) {
       el.style.setProperty('--d', (i * 65) + 'ms');
     });
